@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<script type='text/javascript' src='dist/kinetic-v4.5.4.js'></script>
+		<script type='text/javascript' src='dist/simulation.js'></script>
+		<script type='text/javascript' src='dist/game.js'></script>
+	</head>
+	<body>
+		<div id='playground'></div>
+		<button id="stop", onclick="sim.toggle()">Toggle</button>
+		<button id="addp" onclick="sim.addCharge(25, 25, 1)">Add Positive</button>
+		<button id='addn' onclick="sim.addCharge(25, 25, -1)">Add Negative</button>
+		<button onclick="sim.reset()">Reset</button>
+		<button onclick="console.log(sim.serialize())">Serialize</button>
+
+		<script type='text/javascript'>
+
+			var sampleLevel = {
+				"name": "Level Name",
+				"width" : 800,
+				"height" : 450,
+				"goal" : {
+					"x": 775,
+					"y": 175,
+					"width": 25,
+					"height": 100
+				},
+				"backgroundUrl": "img/bg-2.png",
+				"puckPosition" : {
+					"x" : 100,
+					"y": 50
+				},
+				"fixedCharges": [],
+				"startingCharges" : [1,-1,1,-1,1,-1]
+			};
+
+
+			var sim = null;
+
+			EFH.createGame({
+				container: 'playground',
+				width: 900,
+				height: 450,
+				puck : {
+					x: 300,
+					y: 150
+				},
+				mapURL : "img/bg-1.png"
+			}, function( game ) {
+				sim = game;
+				sim.init( sampleLevel );
+			});
+
+			// sim.addCharge(25, 25, 1);
+			// sim.addCharge(150, 75, 1);
+			// sim.addCharge(200, 150, -1);
+		</script>
+	</body>
+</html>
