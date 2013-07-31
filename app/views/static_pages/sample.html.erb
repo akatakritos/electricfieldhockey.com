@@ -3,51 +3,55 @@
   <%= javascript_include_tag 'simulation.js' %>
   <%= javascript_include_tag 'game.js' %>
 <% end %>
+<p><button id="stop", onclick="sim.toggle()" class='btn btn-primary'>Toggle</button>
+  <button onclick="sim.reset()" class='btn'>Reset</button>
+  <button id="addp" onclick="sim.addCharge(25, 25, 1)" class='btn'>Add Positive</button>
+  <button id='addn' onclick="sim.addCharge(25, 25, -1)" class='btn'>Add Negative</button>
+  </p>
 <div id='playground'></div>
-    <button id="stop", onclick="sim.toggle()" class='btn btn-primary'>Toggle</button>
-    <button id="addp" onclick="sim.addCharge(25, 25, 1)" class='btn'>Add Positive</button>
-    <button id='addn' onclick="sim.addCharge(25, 25, -1)" class='btn'>Add Negative</button>
-    <button onclick="sim.reset()" class='btn'>Reset</button>
+  
+  <h3>Directions</h3>
+  <ul>
+    <li>Drag positive or negative charges onto the playing field</li>
+    <li>Press "Toggle" to start or stop the simulation</li>
+    <li>Press "Reset" to return the puck to the starting position</li>
+    <li>Try to guide the puck to the green goal</li>
+  </ul>
 
-    <script type='text/javascript'>
+  <script type='text/javascript'>
+    var sampleLevel = {
+      "name": "Level Name",
+      "width" : 800,
+      "height" : 450,
+      "goal" : {
+        "x": 775,
+        "y": 175,
+        "width": 25,
+        "height": 100
+      },
+      "backgroundUrl": "img/bg-2.png",
+      "puckPosition" : {
+        "x" : 100,
+        "y": 50
+      },
+      "fixedCharges": [],
+      "startingCharges" : [1,-1,1,-1,1,-1]
+    };
 
-      var sampleLevel = {
-        "name": "Level Name",
-        "width" : 800,
-        "height" : 450,
-        "goal" : {
-          "x": 775,
-          "y": 175,
-          "width": 25,
-          "height": 100
-        },
-        "backgroundUrl": "img/bg-2.png",
-        "puckPosition" : {
-          "x" : 100,
-          "y": 50
-        },
-        "fixedCharges": [],
-        "startingCharges" : [1,-1,1,-1,1,-1]
-      };
 
+    var sim = null;
 
-      var sim = null;
-
-      EFH.createGame({
-        container: 'playground',
-        width: 900,
-        height: 450,
-        puck : {
-          x: 300,
-          y: 150
-        },
-        mapURL : "img/bg-1.png"
-      }, function( game ) {
-        sim = game;
-        sim.init( sampleLevel );
-      });
-
-      // sim.addCharge(25, 25, 1);
-      // sim.addCharge(150, 75, 1);
-      // sim.addCharge(200, 150, -1);
+    EFH.createGame({
+      container: 'playground',
+      width: 900,
+      height: 450,
+      puck : {
+        x: 300,
+        y: 150
+      },
+      mapURL : "img/bg-1.png"
+    }, function( game ) {
+      sim = game;
+      sim.init( sampleLevel );
+    });
     </script>
