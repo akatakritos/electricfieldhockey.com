@@ -1,1 +1,28 @@
-<p>Hi</p>
+<!-- Main hero unit for a primary marketing message or call to action -->
+<div class="hero-unit">
+  <h1>Electric Field Hockey</h1>
+  <p>Place electric charges to guide the puck around obstacles and reach the goal.
+  How many tries will it take you?</p>
+  <p><%= link_to raw('Try Now &raquo;'), sample_path, :class=>"btn btn-primary btn-large" %></p>
+</div>
+
+<!-- Example row of columns -->
+<div class="row">
+  <div class="span4">
+    <h2>Take Aim</h2>
+    <p><%= image_tag 'screenshot.png', :alt => 'Screenshot' %>
+    <p>
+      Since the puck is positively charged, place positive charges to repel and negative charges to attract.
+      Careful placement will allow you to cureve the puck around obstacles and reach the goal!
+    </p>
+  </div>
+  <div class="span4">
+    <h2>Browser Support</h2>
+    <p>Uses canvas, HTML5, and modern javascript. Tested on the latest Chrome build. Your mileage may vary.</p>
+ </div>
+  <div class="span4">
+    <h2>Open Source</h2>
+    <p>The client side code is open source on Github. Feel free to take a look and contribute new features and improvements.</p>
+    <p><%= link_to raw('Fork Me! &raquo;'), 'https://github.com/akatakritos/efh', :class => 'btn' %>
+  </div>
+</div>
