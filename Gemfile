@@ -5,6 +5,7 @@ gem 'rake', "0.8.7"
 gem "jquery-rails", "~> 3.0.4"
 gem "will_paginate-bootstrap"
 gem 'bcrypt-ruby'
+gem 'json'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'

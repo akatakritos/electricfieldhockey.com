@@ -1,0 +1,36 @@
+<% content_for :js do %>
+  <%= javascript_include_tag 'kinetic-v4.5.4.js' %>
+  <%= javascript_include_tag 'simulation.js' %>
+  <%= javascript_include_tag 'game.js' %>
+<% end %>
+<p id="notice"><%= notice %></p>
+
+<h3><%= @level.name %></h3>
+<p><button id="stop", onclick="sim.toggle()" class='btn btn-primary'>Toggle</button>
+  <button onclick="sim.reset()" class='btn'>Reset</button>
+  <button id="addp" onclick="sim.addCharge(25, 25, 1)" class='btn'>Add Positive</button>
+  <button id='addn' onclick="sim.addCharge(25, 25, -1)" class='btn'>Add Negative</button>
+  </p>
+<div id='playground'></div>
+  
+  <h3>Directions</h3>
+  <ul>
+    <li>Drag positive or negative charges onto the playing field</li>
+    <li>Press "Toggle" to start or stop the simulation</li>
+    <li>Press "Reset" to return the puck to the starting position</li>
+    <li>Try to guide the puck to the green goal</li>
+  </ul>
+
+<script type='text/javascript'>
+    var sampleLevel = <%= raw(@level.json.to_json) %>;
+
+
+    var sim = null;
+
+    EFH.createGame({
+      container: 'playground',
+    }, function( game ) {
+      sim = game;
+      sim.init( sampleLevel );
+    });
+    </script>

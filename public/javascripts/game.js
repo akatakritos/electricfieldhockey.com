@@ -20,17 +20,17 @@ var loadAssets = (function() {
 	var assetsList = [
 		{
 			name: "puck",
-			source: 'img/puck.png',
+			source: '/img/puck.png',
 			type: 'image'
 		},
 		{
 			name: "positive",
-			source: 'img/positive.png',
+			source: '/img/positive.png',
 			type: 'image'
 		},
 		{
 			name: "negative",
-			source: 'img/negative.png',
+			source: '/img/negative.png',
 			type: 'image'
 		}
 	];
@@ -48,14 +48,17 @@ var loadAssets = (function() {
 		}
 	};
 
-	return function( cb ) {
+	return function( options, cb ) {
+		var opt = options || {};
+		var rootDir = opt.rootDir || '';
+
 		assetsList.forEach(function( asset ) {
 			if (asset.type === 'image') {
 				var img = new Image();
 				img.onload = function() {
 					assetLoaded(asset, img, cb);
 				};
-				img.src = asset.source;
+				img.src = rootDir + asset.source;
 			}
 		});
 	};
@@ -195,6 +198,20 @@ Level.load = function( source, callback ) {
 Level.loadObject = function( source, callback ) {
 	var map = new Level();
 	merge(map, source);
+
+	map.height = +map.height;
+	map.width = +map.width;
+	map.goal.x = +map.goal.x;
+	map.goal.y = +map.goal.y;
+	map.goal.width = +map.goal.width;
+	map.goal.height = +map.goal.height;
+	map.puckPosition.x = +map.puckPosition.x;
+	map.puckPosition.y = +map.puckPosition.y;
+	if ( typeof source.startingCharges === 'string' ) {
+		map.startingCharges = source.startingCharges.split(',').map(function(c) {
+			return +c;
+		});
+	}
 
 	if ( source.backgroundUrl ) {
 		map.background.url = source.backgroundUrl;
@@ -560,7 +577,7 @@ Game.prototype.serialize = function() {
 };
 
 var createGame = function( options, callback ) {
-	loadAssets(function() {
+	loadAssets(options, function() {
 		var g = new Game(options);
 		callback( g );
 	});
