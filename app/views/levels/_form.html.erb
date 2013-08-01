@@ -84,11 +84,38 @@
   </div>
   <div class='modal-body'>
     <div class='modal-elements'>
-      <%= file_field_tag 'background' %>
+      <form id='uploadform' enctype="multipart/form-data">
+        <%= file_field_tag 'image' %>
+      </form>
     </div>
   </div>
   <div class='modal-footer'>
     <button class='btn' data-dismiss='modal' aria-hidden='true'>Close</button>
-    <button class='btn btn-primary'>Save Changes</button>
+    <button class='btn btn-primary' id='upload'>Upload</button>
   </div>
 </div>
+
+<script type='text/javascript'>
+  $('#upload').click(function() {
+    var data = new FormData($('#uploadform')[0]);
+
+    $.ajax({
+      url : '<%= background_path %>',
+      type: "POST",
+      data : data,
+      cache: false,
+      contentType : false,
+      processData : false,
+      success : function( data, status, xhr ) {
+        $('#level_json_backgroundUrl').val( data.url );
+        $('#upload-modal').modal('hide');
+        console.log( data );
+        console.log( status );
+        console.log( xhr );
+      },
+      error : function ( xhr, status, error ) {
+        alert( status + error + xhr.response );
+      }
+    });
+  });
+</script>

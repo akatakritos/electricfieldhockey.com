@@ -5,6 +5,7 @@ ElectricFieldHockey::Application.routes.draw do
 
   root :to => "StaticPages#index"
   match 'sample', :to => 'StaticPages#sample'
+  post 'background', :to => 'Backgrounds#create'
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
