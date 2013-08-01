@@ -1,4 +1,8 @@
-<%= form_for(@level) do |f| %>
+<%= content_for :js do %>
+  <%= javascript_include_tag 'bootstrap.js' %>
+  <%= javascript_include_tag 'knockout-2.3.0.js' %>
+<% end %>
+<%= form_for(@level, :class=>'form-horizontal') do |f| %>
   <% if @level.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@level.errors.count, "error") %> prohibited this level from being saved:</h2>
@@ -10,16 +14,88 @@
       </ul>
     </div>
   <% end %>
+  <%= f.hidden_field :json, :'data-bind'=>'value: ko.toJSON($root)' %>
+  <fieldset>
+    <legend>Level</legend>
+    <div class='control-group'>
+      <%= f.label :name, :class=>'control-label' %>
+      <div class='controls'>
+        <%= f.text_field :name, :placeholder=>'Name', :"data-bind" =>'value: name' %>
+      </div>
+    </div>
+    <div class='control-group'>
+      <label class='control-label'>Size</label>
+      <div class='controls'>
+        <%= text_field_tag 'width', 800,:placeholder=>'Width', :class=>'input-mini', :'data-bind'=>'value: width' %>
+        <%= text_field_tag 'height', 450, :placeholder=>'Height', :class=>'input-mini', :'data-bind'=>'value: height' %>
+      </div>
+    </div>
+    <div class='control-group'>
+      <label class='control-label'>Puck Position</label>
+      <div class='controls'>
+        <%= text_field_tag 'x', 100,:placeholder=>'x', :class=>'input-mini', :'data-bind'=>'value: puckPosition.x' %>
+        <%= text_field_tag 'y', 50, :placeholder=>'y', :class=>'input-mini', :'data-bind'=>'value: puckPosition.y' %>
+      </div>
+    </div>
+    <div class='control-group'>
+      <label class='control-label'>Background</label>
+      <div class='controls'>
+        <div class='input-append'>
+          <%= text_field_tag 'bg', nil, :placeholder=>'http://example.com/bg.png', :'data-bind'=>'value: backgroundUrl' %>
+          <a href='#upload-modal' class='btn' type='button', data-toggle='modal'><i class='icon-upload'></i> Upload</a>
+        </div>
+      </div>
+    </div>
+    <div class='control-group'>
+      <label class='control-label'>Starting Charges</label>
+      <div class='controls'>
+        <%= text_field_tag 'charges', '1,1,1,-1,-1,-1',:placeholder=>'x', :'data-bind'=>'value: startingCharges' %>
+      </div>
+    </div>
+  </fieldset>
 
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :json %><br />
-    <%= f.text_field :json %>
-  </div>
+  <fieldset>
+    <legend>Goal</legend>
+    <div class='control-group'>
+      <label class='control-label'>Size</label>
+      <div class='controls'>
+        <%= text_field_tag 'width', 25, :placeholder=>'Width', :class=>'input-mini', :'data-bind'=>'value: goal.width' %>
+        <%= text_field_tag 'height', 100, :placeholder=>'Height', :class=>'input-mini', :'data-bind'=>'value: goal.height' %>
+      </div>
+    </div>
+    <div class='control-group'>
+      <label class='control-label'>Position</label>
+      <div class='controls'>
+        <%= text_field_tag 'x', 775, :placeholder=>'x', :class=>'input-mini', :'data-bind'=>'value: goal.x' %>
+        <%= text_field_tag 'y', 175, :placeholder=>'y', :class=>'input-mini', :'data-bind'=>'value: goal.y' %>
+      </div>
+    </div>
+  </fieldset>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit :class=>'btn btn-primary' %>
   </div>
+
+<% if Rails.env.development? %>
+<pre data-bind='text: ko.toJSON($root, null, 2)'></pre>
 <% end %>
+
+<% end %>
+
+<div id='upload-modal' class='modal hide fade' tabindex='-1' role='dialog' aria-labelledby='upload-modal-title' aria-hidden='true'>
+  <div class='modal-header'>
+    <a href='#' class='close' data-dismiss='modal'>&times;</a>
+    <h3 id='upload-modal-title'>Choose a background image to upload</h3>
+  </div>
+  <div class='modal-body'>
+    <div class='modal-elements'>
+      <%= file_field_tag 'background' %>
+    </div>
+  </div>
+  <div class='modal-footer'>
+    <button class='btn' data-dismiss='modal' aria-hidden='true'>Close</button>
+    <button class='btn btn-primary'>Save Changes</button>
+  </div>
+</div>
+
+<%= javascript_include_tag 'ko.level.js' %>
+
