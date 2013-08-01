@@ -1,4 +1,6 @@
 ElectricFieldHockey::Application.routes.draw do
+  resources :levels
+
   root :to => "StaticPages#index"
   match 'sample', :to => 'StaticPages#sample'
   # The priority is based upon order of creation:
