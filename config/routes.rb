@@ -1,4 +1,6 @@
 ElectricFieldHockey::Application.routes.draw do
+  resources :level_sets
+
   resources :levels
 
   root :to => "StaticPages#index"
