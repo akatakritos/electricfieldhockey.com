@@ -14,7 +14,7 @@
       </ul>
     </div>
   <% end %>
-  <%= f.hidden_field :json, :'data-bind'=>'value: ko.toJSON($root)' %>
+  <%# f.hidden_field :json, :'data-bind'=>'value: ko.toJSON($root)' %>
   <fieldset>
     <legend>Level</legend>
     <div class='control-group'>
@@ -26,22 +26,22 @@
     <div class='control-group'>
       <label class='control-label'>Size</label>
       <div class='controls'>
-        <%= text_field_tag 'width', 800,:placeholder=>'Width', :class=>'input-mini', :'data-bind'=>'value: width' %>
-        <%= text_field_tag 'height', 450, :placeholder=>'Height', :class=>'input-mini', :'data-bind'=>'value: height' %>
+        <%= text_field_tag 'level[json][width]', f.object['json']['width'],:placeholder=>'Width', :class=>'input-mini', :'data-bind'=>'value: width' %>
+        <%= text_field_tag 'level[json][height]', f.object['json']['height'], :placeholder=>'Height', :class=>'input-mini', :'data-bind'=>'value: height' %>
       </div>
     </div>
     <div class='control-group'>
       <label class='control-label'>Puck Position</label>
       <div class='controls'>
-        <%= text_field_tag 'x', 100,:placeholder=>'x', :class=>'input-mini', :'data-bind'=>'value: puckPosition.x' %>
-        <%= text_field_tag 'y', 50, :placeholder=>'y', :class=>'input-mini', :'data-bind'=>'value: puckPosition.y' %>
+        <%= text_field_tag 'level[json][puckPosition][x]', f.object['json']['puckPosition']['x'],:placeholder=>'x', :class=>'input-mini', :'data-bind'=>'value: puckPosition.x' %>
+        <%= text_field_tag 'level[json][puckPosition][y]', f.object['json']['puckPosition']['y'], :placeholder=>'y', :class=>'input-mini', :'data-bind'=>'value: puckPosition.y' %>
       </div>
     </div>
     <div class='control-group'>
       <label class='control-label'>Background</label>
       <div class='controls'>
         <div class='input-append'>
-          <%= text_field_tag 'bg', nil, :placeholder=>'http://example.com/bg.png', :'data-bind'=>'value: backgroundUrl' %>
+          <%= text_field_tag 'level[json][backgroundUrl]', f.object['json']['backgroundUrl'], :placeholder=>'http://example.com/bg.png', :'data-bind'=>'value: backgroundUrl' %>
           <a href='#upload-modal' class='btn' type='button', data-toggle='modal'><i class='icon-upload'></i> Upload</a>
         </div>
       </div>
@@ -49,7 +49,7 @@
     <div class='control-group'>
       <label class='control-label'>Starting Charges</label>
       <div class='controls'>
-        <%= text_field_tag 'charges', '1,1,1,-1,-1,-1',:placeholder=>'x', :'data-bind'=>'value: startingCharges' %>
+        <%= text_field_tag 'level[json][startingCharges]', f.object['json']['startingCharges'],:placeholder=>'x', :'data-bind'=>'value: startingCharges' %>
       </div>
     </div>
   </fieldset>
@@ -59,25 +59,21 @@
     <div class='control-group'>
       <label class='control-label'>Size</label>
       <div class='controls'>
-        <%= text_field_tag 'width', 25, :placeholder=>'Width', :class=>'input-mini', :'data-bind'=>'value: goal.width' %>
-        <%= text_field_tag 'height', 100, :placeholder=>'Height', :class=>'input-mini', :'data-bind'=>'value: goal.height' %>
+        <%= text_field_tag 'level[json][goal][width]', f.object['json']['goal']['width'], :placeholder=>'Width', :class=>'input-mini', :'data-bind'=>'value: goal.width' %>
+        <%= text_field_tag 'level[json][goal][height]', f.object['json']['goal']['height'], :placeholder=>'Height', :class=>'input-mini', :'data-bind'=>'value: goal.height' %>
       </div>
     </div>
     <div class='control-group'>
       <label class='control-label'>Position</label>
       <div class='controls'>
-        <%= text_field_tag 'x', 775, :placeholder=>'x', :class=>'input-mini', :'data-bind'=>'value: goal.x' %>
-        <%= text_field_tag 'y', 175, :placeholder=>'y', :class=>'input-mini', :'data-bind'=>'value: goal.y' %>
+        <%= text_field_tag 'level[json][goal][x]', f.object['json']['goal']['x'], :placeholder=>'x', :class=>'input-mini', :'data-bind'=>'value: goal.x' %>
+        <%= text_field_tag 'level[json][goal][y]', f.object['json']['goal']['y'], :placeholder=>'y', :class=>'input-mini', :'data-bind'=>'value: goal.y' %>
       </div>
     </div>
   </fieldset>
   <div class="actions">
     <%= f.submit :class=>'btn btn-primary' %>
   </div>
-
-<% if Rails.env.development? %>
-<pre data-bind='text: ko.toJSON($root, null, 2)'></pre>
-<% end %>
 
 <% end %>
 
@@ -96,6 +92,3 @@
     <button class='btn btn-primary'>Save Changes</button>
   </div>
 </div>
-
-<%= javascript_include_tag 'ko.level.js' %>
-

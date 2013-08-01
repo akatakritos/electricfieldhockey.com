@@ -25,6 +25,7 @@ class LevelsController < ApplicationController
   # GET /levels/new.xml
   def new
     @level = Level.new
+    @level.set_defaults
 
     respond_to do |format|
       format.html # new.html.erb
