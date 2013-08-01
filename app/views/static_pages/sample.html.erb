@@ -53,5 +53,10 @@
     }, function( game ) {
       sim = game;
       sim.init( sampleLevel );
+      sim.on('win', function() {
+        var _gaq = window._gaq || [];
+        _gaq.push(['_trackEvent', 'Game Play', 'Win', 'Sample']);
+        alert('You got it!');
+      });
     });
     </script>
