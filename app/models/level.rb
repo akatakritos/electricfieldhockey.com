@@ -23,7 +23,7 @@ class Level < ActiveRecord::Base
         "width" => 25,
         "height" => 100
       },
-      "backgroundUrl" => "img/bg-2.png",
+      "backgroundUrl" => "",
       "puckPosition" => {
         "x"  => 100,
         "y" => 50

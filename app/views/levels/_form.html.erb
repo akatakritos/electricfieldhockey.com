@@ -17,39 +17,46 @@
   <%# f.hidden_field :json, :'data-bind'=>'value: ko.toJSON($root)' %>
   <fieldset>
     <legend>Level</legend>
-    <div class='control-group'>
-      <%= f.label :name, :class=>'control-label' %>
-      <div class='controls'>
-        <%= f.text_field :name, :placeholder=>'Name', :"data-bind" =>'value: name' %>
-      </div>
-    </div>
-    <div class='control-group'>
-      <label class='control-label'>Size</label>
-      <div class='controls'>
-        <%= text_field_tag 'level[json][width]', f.object['json']['width'],:placeholder=>'Width', :class=>'input-mini', :'data-bind'=>'value: width' %>
-        <%= text_field_tag 'level[json][height]', f.object['json']['height'], :placeholder=>'Height', :class=>'input-mini', :'data-bind'=>'value: height' %>
-      </div>
-    </div>
-    <div class='control-group'>
-      <label class='control-label'>Puck Position</label>
-      <div class='controls'>
-        <%= text_field_tag 'level[json][puckPosition][x]', f.object['json']['puckPosition']['x'],:placeholder=>'x', :class=>'input-mini', :'data-bind'=>'value: puckPosition.x' %>
-        <%= text_field_tag 'level[json][puckPosition][y]', f.object['json']['puckPosition']['y'], :placeholder=>'y', :class=>'input-mini', :'data-bind'=>'value: puckPosition.y' %>
-      </div>
-    </div>
-    <div class='control-group'>
-      <label class='control-label'>Background</label>
-      <div class='controls'>
-        <div class='input-append'>
-          <%= text_field_tag 'level[json][backgroundUrl]', f.object['json']['backgroundUrl'], :placeholder=>'http://example.com/bg.png', :'data-bind'=>'value: backgroundUrl' %>
-          <a href='#upload-modal' class='btn' type='button', data-toggle='modal'><i class='icon-upload'></i> Upload</a>
+    <div class='row'>
+      <div class='span6'>
+        <div class='control-group'>
+          <%= f.label :name, :class=>'control-label' %>
+          <div class='controls'>
+            <%= f.text_field :name, :placeholder=>'Name', :"data-bind" =>'value: name' %>
+          </div>
+        </div>
+        <div class='control-group'>
+          <label class='control-label'>Size</label>
+          <div class='controls'>
+            <%= text_field_tag 'level[json][width]', f.object['json']['width'],:placeholder=>'Width', :class=>'input-mini', :'data-bind'=>'value: width' %>
+            <%= text_field_tag 'level[json][height]', f.object['json']['height'], :placeholder=>'Height', :class=>'input-mini', :'data-bind'=>'value: height' %>
+          </div>
+        </div>
+        <div class='control-group'>
+          <label class='control-label'>Puck Position</label>
+          <div class='controls'>
+            <%= text_field_tag 'level[json][puckPosition][x]', f.object['json']['puckPosition']['x'],:placeholder=>'x', :class=>'input-mini', :'data-bind'=>'value: puckPosition.x' %>
+            <%= text_field_tag 'level[json][puckPosition][y]', f.object['json']['puckPosition']['y'], :placeholder=>'y', :class=>'input-mini', :'data-bind'=>'value: puckPosition.y' %>
+          </div>
+        </div>
+        <div class='control-group'>
+          <label class='control-label'>Starting Charges</label>
+          <div class='controls'>
+            <%= text_field_tag 'level[json][startingCharges]', f.object['json']['startingCharges'],:placeholder=>'x', :'data-bind'=>'value: startingCharges' %>
+          </div>
         </div>
       </div>
-    </div>
-    <div class='control-group'>
-      <label class='control-label'>Starting Charges</label>
-      <div class='controls'>
-        <%= text_field_tag 'level[json][startingCharges]', f.object['json']['startingCharges'],:placeholder=>'x', :'data-bind'=>'value: startingCharges' %>
+      <div class='span6'>
+        <div class='control-group'>
+          <label class='control-label'>Background</label>
+          <div class='controls'>
+            <div class='input-append'>
+              <%= text_field_tag 'level[json][backgroundUrl]', f.object['json']['backgroundUrl'], :placeholder=>'/public/uploads/maps/bg.png', :'data-bind'=>'value: backgroundUrl' %>
+              <a href='#upload-modal' class='btn' type='button', data-toggle='modal'><i class='icon-upload'></i> Upload</a>
+            </div>
+          </div>
+        </div>
+        <%= image_tag f.object['json']['backgroundUrl'], :alt => 'Background Image', :id => 'background' %>
       </div>
     </div>
   </fieldset>
@@ -108,10 +115,8 @@
       processData : false,
       success : function( data, status, xhr ) {
         $('#level_json_backgroundUrl').val( data.url );
+        $('#background').attr('src', data.url).show();
         $('#upload-modal').modal('hide');
-        console.log( data );
-        console.log( status );
-        console.log( xhr );
       },
       error : function ( xhr, status, error ) {
         alert( status + error + xhr.response );
