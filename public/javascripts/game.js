@@ -245,7 +245,8 @@ var Game = function( options ) {
 	this.events = {
 		"lose" : [],
 		"win" : [],
-		"stop" : []
+		"stop" : [],
+		"start" : []
 	};
 
 	this.options = {
@@ -517,6 +518,7 @@ Game.prototype.addInitialCharges = function( initialCharges ) {
  * Start the animation
  */
 Game.prototype.start = function() {
+	this.fire('start');
 	this.anim.start();
 };
 
@@ -524,6 +526,7 @@ Game.prototype.start = function() {
  * Stop the animation
  */
 Game.prototype.stop = function() {
+	this.fire('stop');
 	this.anim.stop();
 };
 
@@ -533,10 +536,10 @@ Game.prototype.stop = function() {
  */
 Game.prototype.toggle = function() {
 	if(this.anim.isRunning()) {
-		this.anim.stop();
+		this.stop();
 		return false;
 	} else {
-		this.anim.start();
+		this.start();
 		return true;
 	}
 };

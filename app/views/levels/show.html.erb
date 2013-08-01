@@ -6,11 +6,11 @@
 <p id="notice"><%= notice %></p>
 
 <h3><%= @level.name %></h3>
-<p><button id="stop", onclick="sim.toggle()" class='btn btn-primary'>Toggle</button>
+<p><button id="stop" class='btn btn-primary'>Start</button>
   <button onclick="sim.reset()" class='btn'>Reset</button>
-  <button id="addp" onclick="sim.addCharge(25, 25, 1)" class='btn'>Add Positive</button>
-  <button id='addn' onclick="sim.addCharge(25, 25, -1)" class='btn'>Add Negative</button>
+  <span class='pull-right attempt-count'>Attempts: <span id='attempts' class='badge'>0</span></span>
   </p>
+
 <div id='playground'></div>
   
   <h3>Directions</h3>
@@ -26,11 +26,39 @@
 
 
     var sim = null;
+    var losses = 0;
 
     EFH.createGame({
       container: 'playground',
     }, function( game ) {
       sim = game;
       sim.init( sampleLevel );
+
+      sim.on('lose', function(){
+        losses++;
+        $('#attempts').text(losses);
+        console.log('losses', losses);
+      });
+
+      sim.on('win', function() {
+        var _gaq = window._gaq || [];
+        _gaq.push(['_trackEvent', 'Game Play', 'Win', 'Losses', losses]);
+        alert('You got it! It only took ' + (losses + 1) + ' tries!');
+      });
+
+      sim.on('stop', function() {
+        $('#stop').text('Start');
+      });
+
+      sim.on('start', function(){
+        $('#stop').text('Stop');
+      });
+
+      $('#stop').click(function() {
+        if ($(this).text() == 'Start') {
+          sim.reset();
+        }
+        sim.toggle();
+      })
     });
-    </script>
+</script>
