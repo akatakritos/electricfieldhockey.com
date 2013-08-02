@@ -3,6 +3,8 @@ class User < ActiveRecord::Base
   attr_accessor :password_confirmation
   attr_reader :password
 
+  has_many :levels, :foreign_key => 'creator_id'
+
   validates_length_of :name, :maximum => 50
   validates :username, :length => {:maximum => 30, :minimum => 4},
                         :presence => true,
