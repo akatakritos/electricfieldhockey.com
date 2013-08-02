@@ -235,26 +235,31 @@ Level.loadJson = function( source, callback ) {
  * @return {Game}
  */
 var Game = function( options ) {
-	this.stage = null; //Kinetic.Stage - canvas where rendering takes place
-	this.layer = null; //Kinetic.Layer - container for all interaction objects
-	this.puckLayer = null;
-	this.anim = null;  //Kinetic.Animation - animation class
-	this.puck = null;  //EFH.Puck - represents the moving hockey puck
-	this.map = null;   //EFH.Level - a game configuration
-	this.txt = null;   //Kinetic.Text - output for debugging
-	this.events = {
-		"lose" : [],
-		"win" : [],
-		"stop" : [],
-		"start" : []
-	};
 
+	__setBlanks( this );
 	this.options = {
 		container : "efh-simulation",
 		debug: false
 	};
 
 	merge(this.options, options);
+};
+
+var __setBlanks = function( thisObj ) {
+	thisObj.stage = null; //Kinetic.Stage - canvas where rendering takes place
+	thisObj.layer = null; //Kinetic.Layer - container for all interaction objects
+	thisObj.puckLayer = null;
+	thisObj.anim = null;  //Kinetic.Animation - animation class
+	thisObj.puck = null;  //EFH.Puck - represents the moving hockey puck
+	thisObj.map = null;   //EFH.Level - a game configuration
+	thisObj.txt = null;   //Kinetic.Text - output for debugging
+	thisObj.events = {
+		"lose" : [],
+		"win" : [],
+		"stop" : [],
+		"start" : []
+	};
+	thisObj.goal = null;
 };
 
 /**
@@ -264,6 +269,10 @@ var Game = function( options ) {
  */
 Game.prototype.init = function( mapSource ) {
 	var self = this;
+
+	if (self.stage) {
+		self.destroy();
+	}
 
 	/**
 	 * Load the level and its assets, and when complete, start configuring the
@@ -339,6 +348,8 @@ Game.prototype.init = function( mapSource ) {
 
 		self.layer.draw();
 		self.puckLayer.draw();
+
+		self.reset();
 	});
 
 	return self;
@@ -401,6 +412,10 @@ Game.prototype.isCollision = function(x, y, radius) {
  * @param  {Object} frame current frame data
  */
 Game.prototype.checkState = function( state, frame ) {
+
+	if (!this.anim.isRunning()) {
+		return;
+	}
 
 	/* Test for collision with another object */
 	var object = this.isCollision(state.position.x, state.position.y, this.puck.getRadius());
@@ -494,7 +509,6 @@ Game.prototype.render = function( state, fps ) {
 Game.prototype.handleCollision = function( shape ) {
 	this.stop();
 	if (shape !== false) {
-		console.log(shape);
 		if (shape == this.goal) {
 			this.fire('win');
 		} else {
@@ -615,6 +629,12 @@ var createGame = function( options, callback ) {
 		var g = new Game(options);
 		callback( g );
 	});
+};
+
+Game.prototype.destroy = function() {
+	this.stage.destroy();
+	this.stage.destroyChildren();
+	__setBlanks( this );
 };
 
 EFH.createGame = createGame;;
