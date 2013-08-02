@@ -14,6 +14,8 @@ ElectricFieldHockey::Application.routes.draw do
 
   get 'signin', :to => 'Sessions#new'
   delete 'signout', :to => 'Sessions#destroy'
+
+  get 'signup', :to => 'Users#new'
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
