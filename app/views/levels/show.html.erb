@@ -2,13 +2,14 @@
   <%= javascript_include_tag 'kinetic-v4.5.4.js' %>
   <%= javascript_include_tag 'simulation.js' %>
   <%= javascript_include_tag 'game.js' %>
+  <%= javascript_include_tag 'bootstrap.js' %>
 <% end %>
 <p id="notice"><%= notice %></p>
 
 <h3><%= @level.name %></h3>
 <p><button id="stop" class='btn btn-primary'>Start</button>
   <button onclick="sim.reset()" class='btn'>Reset</button>
-  <span class='pull-right attempt-count'>Attempts: <span id='attempts' class='badge'>0</span></span>
+  <span class='pull-right attempt-count'>Attempts: <span id='attempts' class='badge attempts'>0</span></span>
   </p>
 
 <div id='playground'></div>
@@ -21,12 +22,27 @@
     <li>Try to guide the puck to the green goal</li>
   </ul>
 
+<div class='modal hide fade' id='win-modal'>
+  <div class='modal-header'>
+    <button type='button' class='close' data-dismiss='modal' aria-hidden='true'>&times;</button>
+    <h3>You Won!</h3>
+  </div>
+  <div class='modal-body'>
+    <p>Congratulations! You successfully hit the goal!</p>
+    <p>It only took you <span id='attemps' class='attempts'>0</span> attempts!</p>
+  </div>
+  <div class='modal-footer'>
+    <a href='#' class='btn btn-primary' data-dismiss='modal'>Close</a>
+  </div>
+  <div>
+</div>
+
 <script type='text/javascript'>
     var sampleLevel = <%= raw(@level.json.to_json) %>;
 
 
     var sim = null;
-    var losses = 0;
+    var attempts = 0;
 
     EFH.createGame({
       container: 'playground',
@@ -35,15 +51,13 @@
       sim.init( sampleLevel );
 
       sim.on('lose', function(){
-        losses++;
-        $('#attempts').text(losses);
-        console.log('losses', losses);
+        
       });
 
       sim.on('win', function() {
         var _gaq = window._gaq || [];
-        _gaq.push(['_trackEvent', 'Game Play', 'Win', 'Losses', losses]);
-        alert('You got it! It only took ' + (losses + 1) + ' tries!');
+        ga('send', 'event', 'Game Play', 'Win', 'attempts', attempts);
+        $('#win-modal').modal();
       });
 
       sim.on('stop', function() {
@@ -52,6 +66,8 @@
 
       sim.on('start', function(){
         $('#stop').text('Stop');
+        attempts++;
+        $('.attempts').text(attempts);
       });
 
       $('#stop').click(function() {

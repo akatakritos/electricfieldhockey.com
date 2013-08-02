@@ -251,6 +251,7 @@ var Game = function( options ) {
 
 	this.options = {
 		container : "efh-simulation",
+		debug: false
 	};
 
 	merge(this.options, options);
@@ -348,7 +349,9 @@ Game.prototype.init = function( mapSource ) {
  * @param  {String} text debugging text to write
  */
 Game.prototype.debug = function(text) {
-	this.txt.setText(text);
+	if (this.options.debug) {
+		this.txt.setText(text);
+	}
 };
 
 /**

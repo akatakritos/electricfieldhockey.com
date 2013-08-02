@@ -15,6 +15,20 @@
     <li>Press "Reset" to return the puck to the starting position</li>
     <li>Try to guide the puck to the green goal</li>
   </ul>
+<div class='modal hide fade' id='win-modal'>
+  <div class='modal-header'>
+    <button type='button' class='close' data-dismiss='modal' aria-hidden='true'>&times;</button>
+    <h3>You Won!</h3>
+  </div>
+  <div class='modal-body'>
+    <p>Congratulations! You successfully hit the goal!</p>
+    <p>It only took you <span id='attemps' class='attempts'>0</span> attempts!</p>
+  </div>
+  <div class='modal-footer'>
+    <a href='#' class='btn btn-primary' data-dismiss='modal'>Close</a>
+  </div>
+  <div>
+</div>
 
   <script type='text/javascript'>
     var sampleLevel = {
@@ -52,9 +66,8 @@
       sim = game;
       sim.init( sampleLevel );
       sim.on('win', function() {
-        var _gaq = window._gaq || [];
-        _gaq.push(['_trackEvent', 'Game Play', 'Win', 'Sample']);
-        alert('You got it!');
+        ga('send', 'event', 'Game Play', 'Win', 'Sample');
+        $('#win-modal').modal();
       });
     });
     </script>
