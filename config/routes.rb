@@ -1,12 +1,19 @@
 ElectricFieldHockey::Application.routes.draw do
+  resources :users
+
   resources :level_sets
 
   resources :levels
+
+  resources :sessions, :only => [ :create, :destroy ]
 
   root :to => "StaticPages#index"
   match 'sample', :to => 'StaticPages#sample'
   match 'tour', :to => 'StaticPages#tour'
   post 'background', :to => 'Backgrounds#create'
+
+  get 'signin', :to => 'Sessions#new'
+  delete 'signout', :to => 'Sessions#destroy'
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

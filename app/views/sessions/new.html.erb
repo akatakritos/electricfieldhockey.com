@@ -1,0 +1,13 @@
+<% @title = 'Sign In' %>
+<%= form_for(:session, :url => sessions_path) do |f| %>
+  <fieldset>
+  <legend>Sign In</legend>
+    <%= f.label :username %>
+    <%= f.text_field :username, :autocapitalize => 'off', :autocorrect => 'off' %>
+
+    <%= f.label :password %>
+    <%= f.password_field :password %>
+  </fieldset>
+
+  <%= f.submit 'Sign In', :class => 'btn btn-primary' %>
+<% end %>
