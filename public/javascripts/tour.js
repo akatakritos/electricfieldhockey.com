@@ -68,22 +68,20 @@
 		var offset = $('#playground').offset();
 		offset.left += 100;
 
+		$('#toolbar').css('visibility', 'hidden');
+
+		EFH.createGame({ container: 'playground'}, function(game) {
+			game.init( initLevel );
+			window.sim = game;
+			game.reset();
+		});
+
 		var steps = [
 			{
 				content: "<p>This is the puck. It has a positive charge. Remember your high school physics?</p>",
 				target: [offset.left + initLevel.puckPosition.x, offset.top + initLevel.puckPosition.y-25],
 				nextButton: true,
 				my: 'bottom center',
-				setup: function(tour, options) {
-
-					$('#toolbar').css('visibility', 'hidden');
-
-					EFH.createGame({ container: 'playground'}, function(game) {
-						game.init( initLevel );
-						window.sim = game;
-						game.reset();
-					});
-				}
 			},
 			{
 				content: '<p>This is the goal. You will try to navigate the puck so that it comes in contact with the goal.</p>',
@@ -163,7 +161,9 @@
 			tipOptions: { showEffect: 'slidein' }
 		});
 
-		tour.start();
+		setTimeout(function() {
+			tour.start();
+		}, 500);
 	});
 
 })();
