@@ -21,10 +21,12 @@
     <h3>You Won!</h3>
   </div>
   <div class='modal-body'>
-    <p>Congratulations! You successfully comepleted the tour. Check out our other levels!</p>
+    <p>Congratulations! You successfully comepleted the tour.</p>
+    <p>Why don't you try a sample of a more difficult level?</p>
   </div>
   <div class='modal-footer'>
-    <a href='#' class='btn btn-primary' data-dismiss='modal'>Close</a>
+    <a href='#' class='btn' data-dismiss='modal'>Close</a>
+    <%= link_to 'Challenge Me!', sample_path, :class => 'btn btn-primary' %>
   </div>
   <div>
 </div>

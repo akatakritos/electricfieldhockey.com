@@ -1,12 +1,10 @@
-<!-- Main hero unit for a primary marketing message or call to action -->
 <div class="hero-unit">
   <h1>Electric Field Hockey</h1>
   <p>Place electric charges to guide the puck around obstacles and reach the goal.
   How many tries will it take you?</p>
-  <p><%= link_to raw('Try Now &raquo;'), sample_path, :class=>"btn btn-primary btn-large" %></p>
+  <p><%= link_to raw('Try Now &raquo;'), tour_path, :class=>"btn btn-primary btn-large", :id => 'hero-link' %></p>
 </div>
 
-<!-- Example row of columns -->
 <div class="row">
   <div class="span4">
     <h2>Take Aim</h2>
@@ -23,6 +21,16 @@
   <div class="span4">
     <h2>Open Source</h2>
     <p>The client side code is open source on Github. Feel free to take a look and contribute new features and improvements.</p>
-    <p><%= link_to raw('Fork Me! &raquo;'), 'https://github.com/akatakritos/efh', :class => 'btn' %>
+    <p><%= link_to raw('Fork Me! &raquo;'), 'https://github.com/akatakritos/efh', :class => 'btn', :id => 'link-github' %>
   </div>
 </div>
+
+<script type='text/javascript'>
+  $('#link-github').click(function() {
+    ga('send','event','Links', 'Github');
+  });
+
+  $('#hero-link').click(function() {
+    ga('send','event','Links','Hero Link');
+  });
+</script>
