@@ -12,4 +12,9 @@ module ApplicationHelper
   def full_title( title )
     title ? "#{title} | Electric Field Hockey" : "Electric Field Hockey"
   end
+
+  def level_link( level )
+    html = image_tag(level.json.backgroundUrl) + level.name
+    link_to html, level_path(level)
+  end
 end

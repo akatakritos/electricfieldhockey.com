@@ -1,35 +1,30 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <b>Email:</b>
-  <%= @user.email %>
-</p>
+<div class='row'>
+  <div class='span4'>
+  <h3>Personal Details</h3>
+    <p>
+      <b>Username:</b>
+      <%= @user.username %>
+    </p>
 
-<p>
-  <b>Username:</b>
-  <%= @user.username %>
-</p>
+    <% if ! @user.name.blank? %>
+    <p>
+      <b>Name:</b>
+      <%= @user.name %>
+    </p>
+    <% end %>
 
-<p>
-  <b>Name:</b>
-  <%= @user.name %>
-</p>
+    <p>
+      <b>Member Since:</b>
+      <%= @user.created_at %>
+  </div>
+  <div class='span8'>
+    <h3><%= @user.username %>'s Levels</h3>
+    <ul class='level-list'>
+      <%= render :partial => 'shared/level_list_item', :collection => @user.levels %>
+    </ul>
+  </div>
+</div>
 
-<p>
-  <b>Admin:</b>
-  <%= @user.admin %>
-</p>
-
-<p>
-  <b>Password digest:</b>
-  <%= @user.password_digest %>
-</p>
-
-<p>
-  <b>Remember token:</b>
-  <%= @user.remember_token %>
-</p>
-
-
-<%= link_to 'Edit', edit_user_path(@user) %> |
 <%= link_to 'Back', users_path %>

@@ -1,0 +1,9 @@
+<li id='<%= level_list_item.id %>' class='level-list'>
+  <div class='level-thumbnail'>
+    <%= image_tag(level_list_item.json['backgroundUrl']) %>
+  </div>
+  <div class='level-details'>
+    <%#<span class='level-creator'><%= link_to level_list_item.creator.username, user_path(level_list_item.creator)</span>%>
+    <%= link_to 'Play', level_path(level_list_item), :class => 'btn' %>
+  </div>
+</li>

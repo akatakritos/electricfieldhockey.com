@@ -1,5 +1,5 @@
 ElectricFieldHockey::Application.routes.draw do
-  resources :users
+  resources :users, :only => [:create, :show]
 
   resources :level_sets
 
