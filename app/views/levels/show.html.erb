@@ -46,6 +46,24 @@
 
     var sim = null;
     var attempts = 0;
+    var gameStartTime = new Date().getTime();
+
+    var recordWin = function() {
+      var post = {
+        level_win : {
+          level_id : <%= raw(@level.id) %>,
+          level_json : JSON.stringify( sampleLevel ),
+          attempts : attempts,
+          time : new Date().getTime() - gameStartTime
+        }
+      };
+
+      $.ajax({
+        type: 'POST',
+        url : '<%= level_wins_path %>',
+        data: post,
+      });
+    }
 
     EFH.createGame({
       container: 'playground',
@@ -60,6 +78,7 @@
       sim.on('win', function() {
         var _gaq = window._gaq || [];
         ga('send', 'event', 'Game Play', 'Win', 'attempts', attempts);
+        recordWin();
         $('#win-modal').modal();
       });
 

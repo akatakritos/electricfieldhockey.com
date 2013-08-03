@@ -5,6 +5,7 @@ class Level < ActiveRecord::Base
   after_find :json_deserialize
 
   belongs_to :creator, :class_name => 'User', :foreign_key => 'creator_id'
+  has_many :level_wins
 
   def json_serialize
     self.json = self.json.to_json
@@ -34,3 +35,18 @@ class Level < ActiveRecord::Base
     }
   end
 end
+
+# == Schema Information
+#
+# Table name: levels
+#
+#  id               :integer         not null, primary key
+#  name             :string(255)
+#  json             :string(255)
+#  created_at       :datetime
+#  updated_at       :datetime
+#  creator_id       :integer
+#  view_count       :integer         default(0)
+#  level_wins_count :integer         default(0)
+#
+

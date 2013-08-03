@@ -1,5 +1,6 @@
 <li id='<%= level_list_item.id %>' class='level-list-item well'>
 <span class='badge badge-inverse' title='Views'><%= level_list_item.view_count %></span>
+<span class='badge badge-success' title='Victories'><%= level_list_item.level_wins.length %></span>
   <div class='level-thumbnail'>
     <%= image_tag(level_list_item.json['backgroundUrl']) %>
     <h5 class='level-name'><%= level_list_item.name %></h5>

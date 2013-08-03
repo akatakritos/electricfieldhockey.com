@@ -10,10 +10,20 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130803022204) do
+ActiveRecord::Schema.define(:version => 20130803024016) do
 
   create_table "level_sets", :force => true do |t|
     t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "level_wins", :force => true do |t|
+    t.integer  "level_id"
+    t.string   "level_json"
+    t.string   "game_state"
+    t.integer  "attempts"
+    t.integer  "time"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -24,7 +34,8 @@ ActiveRecord::Schema.define(:version => 20130803022204) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "creator_id"
-    t.integer  "view_count", :default => 0
+    t.integer  "view_count",       :default => 0
+    t.integer  "level_wins_count", :default => 0
   end
 
   add_index "levels", ["creator_id"], :name => "index_levels_on_creator_id"

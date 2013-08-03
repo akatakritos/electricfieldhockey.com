@@ -7,6 +7,8 @@ ElectricFieldHockey::Application.routes.draw do
 
   resources :sessions, :only => [ :create, :destroy ]
 
+  resources :level_wins, :only => [:create]
+
   root :to => "StaticPages#index"
   match 'sample', :to => 'StaticPages#sample'
   match 'tour', :to => 'StaticPages#tour'
