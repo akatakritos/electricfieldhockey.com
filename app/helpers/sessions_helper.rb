@@ -33,7 +33,7 @@ module SessionsHelper
   end
 
   def is_me
-    if signed_in
+    if signed_in?
       return current_user.username == 'akatakritos'
     else
       return false

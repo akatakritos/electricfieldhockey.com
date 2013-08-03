@@ -1,7 +1,3 @@
-<%= content_for :js do %>
-  <%= javascript_include_tag 'bootstrap.js' %>
-  <%= javascript_include_tag 'knockout-2.3.0.js' %>
-<% end %>
 <%= form_for(@level, :class=>'form-horizontal') do |f| %>
   <% if @level.errors.any? %>
     <div id="error_explanation">
