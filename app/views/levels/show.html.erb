@@ -6,8 +6,12 @@
 <p id="notice"><%= notice %></p>
 
 <h3><%= @level.name %></h3>
+
 <p><button id="stop" class='btn btn-primary'>Start</button>
   <button onclick="sim.reset()" class='btn'>Reset</button>
+  <% if signed_in? && current_user?(@level.creator) %>
+  <span class='level-edit-link'><%= link_to 'Edit', edit_level_path(@level) %></span>
+<% end %>
   <span class='pull-right attempt-count'>Attempts: <span id='attempts' class='badge attempts'>0</span></span>
   </p>
 

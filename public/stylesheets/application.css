@@ -49,4 +49,6 @@ li .level-details {
 	margin-top: 2px;
 }
 
-.level-list
+.level-edit-link {
+	font-size: 0.8em;
+}
