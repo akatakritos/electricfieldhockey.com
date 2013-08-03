@@ -1,7 +1,11 @@
 .nav .icon-chevron-right {
 	float: right;
 }
-
+.field_with_errors {
+  @extend .control-group;
+  @extend .error;
+ }
+ 
 .form-image { border: 1px solid black; }
 .attempt-count{ font-size: 1.2em;}
 footer {

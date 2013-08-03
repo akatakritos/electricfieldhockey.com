@@ -7,6 +7,7 @@ class SessionsController < ApplicationController
     user = User.find_by_username(params[:session][:username].downcase)
     if user && user.authenticate(params[:session][:password])
       sign_in user
+      flash[:info] = "Welcome back, #{user.username}"
       redirect_back_or root_path
     else
       flash.now[:error] = 'Invalid username/password combination'

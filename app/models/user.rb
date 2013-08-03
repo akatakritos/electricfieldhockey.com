@@ -2,6 +2,7 @@ require 'bcrypt'
 class User < ActiveRecord::Base
   attr_accessor :password_confirmation
   attr_reader :password
+  attr_protected :admin 
 
   has_many :levels, :foreign_key => 'creator_id'
 
