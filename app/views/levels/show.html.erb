@@ -54,7 +54,8 @@
           level_id : <%= raw(@level.id) %>,
           level_json : JSON.stringify( sampleLevel ),
           attempts : attempts,
-          time : new Date().getTime() - gameStartTime
+          time : new Date().getTime() - gameStartTime,
+          game_state : sim.serialize()
         }
       };
 
