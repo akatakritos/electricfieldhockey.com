@@ -2,7 +2,7 @@ class LevelWin < ActiveRecord::Base
   belongs_to :level, :counter_cache => true
   belongs_to :user
 
-  default_scope order('attempts ASC')
+  default_scope order('attempts ASC, time ASC')
 end
 
 # == Schema Information
