@@ -52,7 +52,8 @@
             </div>
           </div>
         </div>
-        <%= image_tag f.object['json']['backgroundUrl'], :alt => 'Background Image', :id => 'background', :class => 'form-image' %>
+        <%= image_tag f.object['json']['backgroundUrl'], :alt => 'Background Image', :id => 'background', 
+        :class => 'form-image' + (f.object['json']['backgroundUrl'].empty? ? ' invisible' : '') %>
       </div>
     </div>
   </fieldset>
@@ -111,7 +112,7 @@
       processData : false,
       success : function( data, status, xhr ) {
         $('#level_json_backgroundUrl').val( data.url );
-        $('#background').attr('src', data.url).show();
+        $('#background').attr('src', data.url).removeClass('invisible');
         $('#upload-modal').modal('hide');
       },
       error : function ( xhr, status, error ) {

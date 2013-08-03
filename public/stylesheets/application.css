@@ -7,6 +7,9 @@
  }
  
 .form-image { border: 1px solid black; }
+.invisible {
+	visibility: none;
+}
 .attempt-count{ font-size: 1.2em;}
 footer {
 	text-align: center;
