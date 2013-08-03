@@ -22,6 +22,10 @@ class User < ActiveRecord::Base
     BCrypt::Password.new(password_digest) == unencrypted_password && self
   end
 
+  def to_param
+    "#{self.id}-#{self.username}"
+  end
+
   def password=(unencrypted_password)
     unless unencrypted_password.blank?
       @password = unencrypted_password

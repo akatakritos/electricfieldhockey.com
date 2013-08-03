@@ -413,7 +413,7 @@ Game.prototype.isCollision = function(x, y, radius) {
  */
 Game.prototype.checkState = function( state, frame ) {
 
-	if (!this.anim.isRunning()) {
+	if (!this.anim || !this.anim.isRunning()) {
 		return;
 	}
 

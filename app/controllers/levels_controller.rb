@@ -1,5 +1,5 @@
 class LevelsController < ApplicationController
-  before_filter :signed_in_user, :except => [:show]
+  before_filter :signed_in_user, :except => [:show, :index]
   # GET /levels
   # GET /levels.xml
   def index
@@ -43,6 +43,7 @@ class LevelsController < ApplicationController
   # POST /levels.xml
   def create
     @level = Level.new(params[:level])
+    @level.creator = current_user
 
     respond_to do |format|
       if @level.save

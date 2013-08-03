@@ -115,7 +115,10 @@
 				setup: function(tourd, options) {
 					window.sim.init( positiveLevel );
 					window.sim.on('win', function(){
-						tourd.next();
+						setTimeout(function(){
+							tourd.next();
+						}, 500);
+
 					});
 				},
 				skipButton: true
@@ -128,7 +131,9 @@
 				setup: function(tourd, options) {
 					window.sim.init( negativeLevel );
 					window.sim.on('win', function(){
-						tourd.next();
+						setTimeout(function() {
+							tourd.next();
+						},500);
 					});
 				},
 				skipButton: true

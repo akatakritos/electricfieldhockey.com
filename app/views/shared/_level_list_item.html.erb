@@ -1,9 +1,13 @@
-<li id='<%= level_list_item.id %>' class='level-list'>
+<li id='<%= level_list_item.id %>' class='level-list-item well'>
   <div class='level-thumbnail'>
     <%= image_tag(level_list_item.json['backgroundUrl']) %>
+    <h5 class='level-name'><%= level_list_item.name %></h5>
+    <% if !@user %>
+      <small class='level-creator'><%= link_to level_list_item.creator.username, user_path(level_list_item.creator)%></small>
+    <% end %>
   </div>
-  <div class='level-details'>
-    <%#<span class='level-creator'><%= link_to level_list_item.creator.username, user_path(level_list_item.creator)</span>%>
-    <%= link_to 'Play', level_path(level_list_item), :class => 'btn' %>
+  <div class='level-actions'>
+    <%= link_to('Edit', edit_level_path(level_list_item), :class => 'btn btn-mini') if current_user?(level_list_item.creator) %>
+    <%= link_to 'Play', level_path(level_list_item), :class => 'btn btn-primary btn-mini' %>
   </div>
 </li>

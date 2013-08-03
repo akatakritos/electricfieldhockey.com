@@ -1,25 +1,8 @@
-<h1>Listing levels</h1>
+<h1>Levels</h1>
 
-<table>
-  <tr>
-    <th>Name</th>
-    <th>Json</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
+<ul class='level-list'>
+  <%= render :partial => 'shared/level_list_item', :collection => @levels %>
+</ul>
 
-<% @levels.each do |level| %>
-  <tr>
-    <td><%= level.name %></td>
-    <td><%= level.json %></td>
-    <td><%= link_to 'Show', level %></td>
-    <td><%= link_to 'Edit', edit_level_path(level) %></td>
-    <td><%= link_to 'Destroy', level, :confirm => 'Are you sure?', :method => :delete %></td>
-  </tr>
-<% end %>
-</table>
-
-<br />
 
 <%= link_to 'New Level', new_level_path %>
