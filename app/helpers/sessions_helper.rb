@@ -32,6 +32,14 @@ module SessionsHelper
     session.delete(:return_to)
   end
 
+  def is_me
+    if signed_in
+      return current_user.username == 'akatakritos'
+    else
+      return false
+    end
+  end
+
   def store_location
     session[:return_to] = request.url
   end
