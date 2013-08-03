@@ -249,5 +249,11 @@ EFH.K = K;;/**
 		}
 	};
 
+	Simulation.prototype.serialize = function() {
+		return JSON.stringify({
+			charges: this.charges
+		});
+	};
+
 	EFH.Simulation = Simulation;;
 })( typeof window === 'undefined' ? global : window);

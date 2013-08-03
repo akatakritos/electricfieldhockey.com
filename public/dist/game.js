@@ -585,6 +585,8 @@ Game.prototype.addCharge = function(x, y, charge) {
 			self.anim.simulation.removeFromPlayingField(this.charge);
 		}
 	};
+
+	return dragCharge;
 };
 
 /**
@@ -603,7 +605,16 @@ Game.prototype.reset = function() {
  * Saves the game state to JSON
  */
 Game.prototype.serialize = function() {
-	return this.stage.toJSON();
+	return this.anim.simulation.serialize();
+};
+
+Game.prototype.deserialize = function(json) {
+	var obj = JSON.parse(json);
+	var self = this;
+	obj.charges.forEach(function(c) {
+		var dc = self.addCharge(c.x, c.y, c.charge);
+		self.anim.simulation.addToPlayingField(dc.charge);
+	});
 };
 
 Game.prototype.on = function( event, callback ) {
