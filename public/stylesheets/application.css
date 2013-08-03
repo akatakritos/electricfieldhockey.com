@@ -59,3 +59,7 @@ li .level-details {
 .level-edit-link {
 	font-size: 0.8em;
 }
+
+.scoreboard-link {
+	float: right;
+}

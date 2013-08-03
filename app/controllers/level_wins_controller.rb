@@ -10,4 +10,13 @@ class LevelWinsController < ApplicationController
       render :text => 'OK'
     end
   end
+
+  def index
+    @level = Level.find(params[:level_id])
+  end
+
+  def show
+    @level_win = LevelWin.find(params[:id])
+    @level = @level_win.level
+  end
 end

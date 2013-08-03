@@ -1,13 +1,15 @@
 ElectricFieldHockey::Application.routes.draw do
   resources :users, :only => [:create, :show]
 
-  resources :level_sets
-
-  resources :levels
+  resources :levels do
+    match 'scoreboard', :to => 'LevelWins#index'
+  end
 
   resources :sessions, :only => [ :create, :destroy ]
 
   resources :level_wins, :only => [:create]
+
+  match 'replay/:id', :to => 'LevelWins#show', :as => 'replay'
 
   root :to => "StaticPages#index"
   match 'sample', :to => 'StaticPages#sample'
