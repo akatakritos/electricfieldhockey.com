@@ -6,6 +6,7 @@ gem "jquery-rails", "~> 3.0.4"
 gem "will_paginate-bootstrap"
 gem 'bcrypt-ruby'
 gem 'json'
+gem 'yaml_db', '0.2.2'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
