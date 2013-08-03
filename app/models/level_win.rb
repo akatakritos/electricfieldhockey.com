@@ -1,5 +1,6 @@
 class LevelWin < ActiveRecord::Base
   belongs_to :level, :counter_cache => true
+  belongs_to :user
 end
 
 # == Schema Information
