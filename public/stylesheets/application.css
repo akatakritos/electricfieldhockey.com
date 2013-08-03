@@ -47,6 +47,10 @@ li .level-details {
 	margin: 10px;
 }
 
+.level-list-item .badge {
+	margin-bottom: 5px;
+}
+
 .level-actions {
 	float:right;
 	margin-top: 2px;

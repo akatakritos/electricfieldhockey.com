@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130802195138) do
+ActiveRecord::Schema.define(:version => 20130803022204) do
 
   create_table "level_sets", :force => true do |t|
     t.string   "name"
@@ -24,6 +24,7 @@ ActiveRecord::Schema.define(:version => 20130802195138) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "creator_id"
+    t.integer  "view_count", :default => 0
   end
 
   add_index "levels", ["creator_id"], :name => "index_levels_on_creator_id"

@@ -15,6 +15,7 @@ class LevelsController < ApplicationController
   # GET /levels/1.xml
   def show
     @level = Level.find(params[:id])
+    Level.increment_counter :view_count, @level.id
 
     respond_to do |format|
       format.html # show.html.erb
