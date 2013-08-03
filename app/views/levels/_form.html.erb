@@ -54,6 +54,8 @@
         </div>
         <%= image_tag f.object['json']['backgroundUrl'], :alt => 'Background Image', :id => 'background', 
         :class => 'form-image' + (f.object['json']['backgroundUrl'].empty? ? ' invisible' : '') %>
+        <p>Create an image the same size as your level and fill it with transparency. Anything you then draw
+        on the image will become an obstacle.</p>
       </div>
     </div>
   </fieldset>
