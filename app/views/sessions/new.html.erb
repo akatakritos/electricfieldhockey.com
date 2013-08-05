@@ -1,4 +1,7 @@
 <% @title = 'Sign In' %>
+<div class='row'>
+<div class='span3'></div>
+<div class='span6'>
 <%= form_for(:session, :url => sessions_path) do |f| %>
   <fieldset>
   <legend>Sign In</legend>
@@ -10,5 +13,8 @@
   </fieldset>
 
   <%= f.submit 'Sign In', :class => 'btn btn-primary' %>
-  New user? <%= link_to 'Create an account.', signup_path %>
+  
 <% end %>
+New user? <%= link_to 'Create an account.', signup_path %>
+</div>
+<div class='span3'></div>
