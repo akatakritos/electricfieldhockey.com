@@ -1,3 +1,4 @@
+<% @title = @level.name %>
 <% content_for :js do %>
   <%= javascript_include_tag 'kinetic-v4.5.4.js' %>
   <%= javascript_include_tag 'simulation.js' %>
@@ -6,6 +7,7 @@
 <p id="notice"><%= notice %></p>
 
 <h3><%= @level.name %></h3>
+<div class="created-by">Created by <%= link_to @level.creator.username, user_path(@level.creator) %></div>
 
 <p><button id="stop" class='btn btn-primary'>Start</button>
   <button onclick="sim.reset()" class='btn'>Reset</button>

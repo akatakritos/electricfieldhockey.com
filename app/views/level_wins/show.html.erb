@@ -1,3 +1,4 @@
+<% title = @level.name + " Replay" %>
 <% content_for :js do %>
   <%= javascript_include_tag 'kinetic-v4.5.4.js' %>
   <%= javascript_include_tag 'simulation.js' %>
@@ -5,6 +6,8 @@
 <% end %>
 
 <h3><%= @level.name %></h3>
+<div class="created-by">Created by <%= link_to @level.creator.username, user_path(@level.creator) %></div>
+<div class='replay-by'>Replay by <%= user_link(@level_win.user) %></div>
 
 <p><button id="stop" class='btn btn-primary'>Start</button>
   <button onclick="sim.reset()" class='btn'>Reset</button>

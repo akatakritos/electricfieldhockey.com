@@ -17,4 +17,8 @@ module ApplicationHelper
     html = image_tag(level.json.backgroundUrl) + level.name
     link_to html, level_path(level)
   end
+
+  def user_link( user )
+    user ? link_to(user.username, user_path(user)) : "Anonymous Coward"
+  end
 end

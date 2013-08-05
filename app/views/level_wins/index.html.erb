@@ -1,3 +1,4 @@
+<% @title = @level.name + " - Scoreboard" %>
 <div class='row'>
   <div class='span4'>
     <ul class='level-list'>
@@ -14,9 +15,9 @@
       </tr>
       <% @level.level_wins.each do |lw| %>
         <tr>
-          <td><%= lw.user.nil? ? 'Anonymous Coward' : link_to(lw.user.username, user_path(lw.user)) %></td>
+          <td><%= user_link(lw.user) %></td>
           <td><%= lw.attempts %></td>
-          <td><%= lw.time/1000 %></td>
+          <td><%= lw.time/1000 %> seconds</td>
           <td><%= link_to 'Replay', replay_path(lw) if !lw.game_state.nil? %></td>
         </tr>
       <% end %>

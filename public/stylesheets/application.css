@@ -63,3 +63,13 @@ li .level-details {
 .scoreboard-link {
 	float: right;
 }
+
+.created-by {
+	margin-bottom: 7px;
+	margin-top: -7px;
+}
+
+.replay-by {
+	margin-bottom: 7px;
+	margin-top: -7px;
+}
