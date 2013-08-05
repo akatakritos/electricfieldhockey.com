@@ -260,6 +260,7 @@ var __setBlanks = function( thisObj ) {
 		"start" : []
 	};
 	thisObj.goal = null;
+	thisObj.dragCharges = [];
 };
 
 /**
@@ -536,6 +537,9 @@ Game.prototype.addInitialCharges = function( initialCharges ) {
  */
 Game.prototype.start = function() {
 	this.fire('start');
+	this.dragCharges.forEach(function(dc) {
+		dc.shape.setDraggable(false);
+	});
 	this.anim.start();
 };
 
@@ -544,6 +548,9 @@ Game.prototype.start = function() {
  */
 Game.prototype.stop = function() {
 	this.fire('stop');
+	this.dragCharges.forEach(function(dc) {
+		dc.shape.setDraggable(true);
+	});
 	this.anim.stop();
 };
 
@@ -586,6 +593,7 @@ Game.prototype.addCharge = function(x, y, charge) {
 		}
 	};
 
+	this.dragCharges.push( dragCharge );
 	return dragCharge;
 };
 
