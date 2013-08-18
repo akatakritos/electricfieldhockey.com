@@ -5,6 +5,7 @@ class LevelWin < ActiveRecord::Base
   default_scope order('attempts ASC, time ASC')
 end
 
+
 # == Schema Information
 #
 # Table name: level_wins
@@ -17,5 +18,6 @@ end
 #  time       :integer
 #  created_at :datetime
 #  updated_at :datetime
+#  user_id    :integer
 #
 

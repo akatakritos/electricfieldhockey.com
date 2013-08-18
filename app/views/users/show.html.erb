@@ -16,7 +16,7 @@
 
     <p>
       <b>Member Since:</b>
-      <%= @user.created_at %>
+      <%= time_ago_in_words(@user.created_at) %> ago
   </div>
   <div class='span8'>
     <h3><%= @user.username %>'s Levels</h3>
