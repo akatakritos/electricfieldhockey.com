@@ -7,7 +7,7 @@ class User < ActiveRecord::Base
   has_many :levels, :foreign_key => 'creator_id'
 
   validates_length_of :name, :maximum => 50
-  validates :username, :length => {:maximum => 30, :minimum => 4},
+  validates :username, :length => {:maximum => 25, :minimum => 4},
                         :presence => true,
                         :uniqueness => { :case_sensitive => :false }
 
@@ -17,6 +17,7 @@ class User < ActiveRecord::Base
 
   before_save do |user|
     user.remember_token = SecureRandom.hex
+    user.email.downcase!
   end
 
   def authenticate(unencrypted_password)
