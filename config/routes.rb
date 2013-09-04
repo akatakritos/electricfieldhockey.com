@@ -2,7 +2,7 @@ ElectricFieldHockey::Application.routes.draw do
   resources :users, :only => [:create, :show]
 
   resources :levels do
-    match 'scoreboard', :to => 'LevelWins#index'
+    match 'scoreboard', :to => ':evelWins#index'
   end
 
   resources :sessions, :only => [ :create, :destroy ]
@@ -11,10 +11,10 @@ ElectricFieldHockey::Application.routes.draw do
 
   match 'replay/:id', :to => 'LevelWins#show', :as => 'replay'
 
-  root :to => "StaticPages#index"
-  match 'sample', :to => 'StaticPages#sample'
-  match 'tour', :to => 'StaticPages#tour'
-  post 'background', :to => 'Backgrounds#create'
+  root :to => "static_pages#index"
+  match 'sample', :to => 'static_pages#sample'
+  match 'tour', :to => 'static_pages#tour'
+  post 'background', :to => 'backgrounds#create'
 
   get 'signin', :to => 'Sessions#new'
   delete 'signout', :to => 'Sessions#destroy'
