@@ -27,11 +27,45 @@ describe "Users Specs" do
     it 'should have the users member since time' do
       page.should have_content("less than a minute ago")
     end
-  
+
     it 'should have each of the users levels' do
       user.levels.count.should eq(5)
       user.levels.all.each do |level|
         page.should have_content( level.name )
+      end
+    end
+
+    describe 'as a guest' do
+
+      it 'should not have edit links for the level' do
+        user.levels.each do |level|
+          page.should_not have_link 'Edit', :href => edit_level_path(level)
+        end
+      end
+    end
+
+    describe 'as a different user' do
+      let(:different_user) { FactoryGirl.create(:user) }
+      before do
+        sign_in different_user
+      end
+
+      it 'should not have edit links for the level' do
+        user.levels.each do |level|
+          page.should_not have_link 'Edit', :href => edit_level_path(level)
+        end
+      end
+    end
+
+    describe 'as the user himself' do
+      before do
+        sign_in user
+      end
+
+      it 'should have edit links' do
+        user.levels.each do |level|
+          page.should have_link 'Edit', :href => edit_level_path(level)
+        end
       end
     end
   end
