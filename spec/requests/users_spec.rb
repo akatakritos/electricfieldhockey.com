@@ -1,4 +1,5 @@
 require 'spec_helper'
+include ActionView::Helpers::DateHelper
 
 describe "Users Specs" do
   describe "Profile View" do
@@ -25,7 +26,7 @@ describe "Users Specs" do
     end
 
     it 'should have the users member since time' do
-      page.should have_content("less than a minute ago")
+      page.should have_content(time_ago_in_words(user.created_at))
     end
 
     it 'should have each of the users levels' do
@@ -66,6 +67,32 @@ describe "Users Specs" do
         user.levels.each do |level|
           page.should have_link 'Edit', :href => edit_level_path(level)
         end
+      end
+    end
+  end
+
+  describe 'index view' do
+    before do
+      20.times do 
+        FactoryGirl.create(:user)
+      end
+
+      visit users_path
+    end
+
+    subject { page }
+
+    it 'should list all the users usernames and names and member since' do
+      User.all.each do |user|
+        page.should have_selector "tr#user-#{user.id} td", user.name
+        page.should have_selector "tr#user-#{user.id} td", user.username
+        page.should have_selector "tr#user-#{user.id} td", time_ago_in_words(user.created_at)
+      end
+    end
+
+    it 'should link to the users profile by username' do
+      User.all.each do |user|
+        page.should have_link user.username, :href => user_path(user)
       end
     end
   end

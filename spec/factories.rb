@@ -6,6 +6,9 @@ FactoryGirl.define do
     sequence :name do |n|
       "Person #{n}"
     end
+    sequence :created_at do |n|
+      Time.now - (24*60*60*n)
+    end
     sequence(:username) { |n| "user#{n}" }
     password "foobar"
     password_confirmation "foobar"

@@ -1,33 +1,19 @@
-<h1>Listing users</h1>
+<h1>Users</h1>
 
-<table>
+<table class='table table-striped'>
   <tr>
-    <th>Email</th>
     <th>Username</th>
     <th>Name</th>
-    <th>Admin</th>
-    <th>Password digest</th>
-    <th>Remember token</th>
-    <th></th>
-    <th></th>
-    <th></th>
+    <th>Member Since</th>
+    <th>Levels</th>
   </tr>
 
 <% @users.each do |user| %>
-  <tr>
-    <td><%= user.email %></td>
-    <td><%= user.username %></td>
+    <tr id='user-<%= user.id %>'>
+    <td><%= link_to user.username, user_path(user) %></td>
     <td><%= user.name %></td>
-    <td><%= user.admin %></td>
-    <td><%= user.password_digest %></td>
-    <td><%= user.remember_token %></td>
-    <td><%= link_to 'Show', user %></td>
-    <td><%= link_to 'Edit', edit_user_path(user) %></td>
-    <td><%= link_to 'Destroy', user, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><span title='<%= user.created_at %>'><%= time_ago_in_words(user.created_at) %></span></td>
+    <td><%= user.levels.count if user.levels.any? %></td>
   </tr>
 <% end %>
 </table>
-
-<br />
-
-<%= link_to 'New User', new_user_path %>

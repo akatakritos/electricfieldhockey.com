@@ -1,5 +1,5 @@
 ElectricFieldHockey::Application.routes.draw do
-  resources :users, :only => [:create, :show]
+  resources :users, :only => [:create, :show, :index]
 
   resources :levels do
     match 'scoreboard', :to => ':evelWins#index'
