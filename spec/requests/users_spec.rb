@@ -69,6 +69,8 @@ describe "Users Specs" do
         end
       end
     end
+
+    it_should_behave_like 'all pages'
   end
 
   describe 'index view' do
@@ -95,6 +97,8 @@ describe "Users Specs" do
         page.should have_link user.username, :href => user_path(user)
       end
     end
+    
+    it_should_behave_like 'all pages'
   end
 end
 
