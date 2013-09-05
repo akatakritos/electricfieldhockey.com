@@ -1,16 +1,17 @@
 class SessionsController < ApplicationController
 
   def new
+    redirect_to user_path(current_user) if signed_in?
   end
 
   def create
     user = User.find_by_username(params[:session][:username].downcase)
     if user && user.authenticate(params[:session][:password])
       sign_in user
-      flash[:info] = "Welcome back, #{user.username}"
+      flash[:success] = "Welcome back, #{user.username}"
       redirect_back_or levels_path
     else
-      flash.now[:error] = 'Invalid username/password combination'
+      flash.now[:error] = signin_error_message
       render 'new'
     end
   end

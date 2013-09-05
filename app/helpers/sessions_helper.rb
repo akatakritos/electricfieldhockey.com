@@ -50,4 +50,8 @@ module SessionsHelper
       redirect_to signin_url, :notice => 'Please sign in.'
     end
   end
+
+  def signin_error_message
+    'Invalid username/password combination'
+  end
 end
