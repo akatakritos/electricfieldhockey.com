@@ -5,14 +5,18 @@ class SessionsController < ApplicationController
   end
 
   def create
-    user = User.find_by_username(params[:session][:username].downcase)
-    if user && user.authenticate(params[:session][:password])
-      sign_in user
-      flash[:success] = "Welcome back, #{user.username}"
-      redirect_back_or levels_path
+    if signed_in?
+      redirect_to user_path(current_user)
     else
-      flash.now[:error] = signin_error_message
-      render 'new'
+      user = User.find_by_username(params[:session][:username].downcase)
+      if user && user.authenticate(params[:session][:password])
+        sign_in user
+        flash[:success] = "Welcome back, #{user.username}"
+        redirect_back_or levels_path
+      else
+        flash.now[:error] = signin_error_message
+        render 'new'
+      end
     end
   end
 
