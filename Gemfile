@@ -3,7 +3,7 @@ source 'http://rubygems.org'
 gem 'rails', '3.0.3'
 gem 'rake', "0.8.7"
 gem "jquery-rails", "~> 3.0.4"
-gem "will_paginate-bootstrap"
+#gem "will_paginate-bootstrap"
 gem 'bcrypt-ruby'
 gem 'json'
 gem 'yaml_db', '0.2.2'
@@ -34,11 +34,18 @@ gem 'sqlite3-ruby', :require => 'sqlite3'
 # and rake tasks are available in development mode:
 group :development, :test do
    #gem 'webrat'
+  gem 'railties', '3.0.3'
   gem 'annotate', '2.4.0'
   gem 'rspec-rails'
   gem 'factory_girl', '<3.0.0'
   gem 'capybara', '<=2.0.3'
   gem 'nokogiri', '<1.6'
+  gem 'guard'
+  gem 'guard-spork'
+  gem 'guard-rspec'
+  gem 'childprocess'
+  gem 'growl'
+  gem 'spork'
 end
 
 group :production do
