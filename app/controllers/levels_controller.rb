@@ -38,6 +38,11 @@ class LevelsController < ApplicationController
   # GET /levels/1/edit
   def edit
     @level = Level.find(params[:id])
+
+    if @level.creator != current_user
+      flash[:error] = 'Access Denied'
+      redirect_to levels_path
+    end
   end
 
   # POST /levels
@@ -61,6 +66,11 @@ class LevelsController < ApplicationController
   # PUT /levels/1.xml
   def update
     @level = Level.find(params[:id])
+    if (current_user != @level.creator)
+      flash[:error] = "Access Denied"
+      redirect_to levels_path
+      return
+    end
 
     respond_to do |format|
       if @level.update_attributes(params[:level])

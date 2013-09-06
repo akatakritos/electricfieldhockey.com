@@ -54,4 +54,65 @@ describe "LevelsSpecs" do
       it_should_behave_like 'all pages'
     end
   end
+
+  describe 'Edit level' do
+    let(:level) { FactoryGirl.create(:level) }
+
+    describe 'as guest' do
+      before { visit edit_level_path(level) }
+
+      it 'should redirect to sign in' do
+        current_path.should eq signin_path
+      end
+
+      describe 'submitting a PUT request' do
+        before { put level_path(level) }
+        specify { response.should redirect_to(signin_path) }
+      end
+    end
+
+    describe 'as not the level owner' do
+      let(:not_owner_user) { FactoryGirl.create(:user) }
+      before do
+        sign_in not_owner_user
+        visit edit_level_path(level)
+      end
+
+      it 'should redirect to levels' do
+        current_path.should eq levels_path
+      end
+
+      it 'should have a not authorized notification' do
+        page.should have_selector 'div.alert-error'
+      end
+
+      describe 'submitting a PUT request' do
+        before { put level_path(level) }
+        specify { response.should redirect_to(levels_path) }
+      end
+    end
+
+    describe 'as level owner' do
+      before do
+        sign_in level.creator
+        visit edit_level_path(level)
+      end
+
+      it 'should have the form' do
+        page.should have_field 'level_name'
+        page.should have_field 'level_json_width'
+        page.should have_field 'level_json_height'
+        page.should have_field 'level_json_puckPosition_x'
+        page.should have_field 'level_json_puckPosition_y'
+        page.should have_field 'level_json_startingCharges'
+        page.should have_field 'level_json_backgroundUrl'
+        page.should have_field 'level_json_goal_width'
+        page.should have_field 'level_json_goal_height'
+        page.should have_field 'level_json_goal_x'
+        page.should have_field 'level_json_goal_y'
+      end
+
+      it_should_behave_like 'all pages'
+    end
+  end
 end
