@@ -24,5 +24,6 @@ ElectricFieldHockey::Application.configure do
   config.action_dispatch.best_standards_support = :builtin
 
   ActiveRecord::Base.logger = Logger.new STDOUT
+  config.autoload_paths += Dir[Rails.root.join('app', 'models', '{**}')]
 end
 
