@@ -26,3 +26,20 @@ shared_examples 'game levels' do
     expect(page).to have_selector('button#reset', 'Reset')
   end
 end
+
+shared_examples 'admin pages' do
+  describe 'no access to guests' do
+    before { get the_path }
+    it { should redirect_to signin_path }
+  end
+
+  describe 'no access to non admin' do 
+    let(:non_admin_user) { FactoryGirl.create(:user) }
+    before do
+      sign_in non_admin_user
+      get the_path
+    end
+
+    it { should redirect_to root_path }
+  end 
+end
