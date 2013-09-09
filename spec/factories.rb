@@ -12,7 +12,12 @@ FactoryGirl.define do
     sequence(:username) { |n| "user#{n}" }
     password "foobar"
     password_confirmation "foobar"
+
+    factory :admin_user do
+      admin true
+    end
   end
+
 
   factory :level do |n|
     sequence :name do |n|
