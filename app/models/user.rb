@@ -16,8 +16,9 @@ class User < ActiveRecord::Base
   validates_presence_of :password_confirmation, :on => :create
 
   before_save do |user|
-    user.remember_token = SecureRandom.hex
-    user.email.downcase!
+    # only update the auth token if the password was changed: effectively logging them out
+    user.remember_token = SecureRandom.hex unless @password.blank?
+    user.email.downcase! if user.email
   end
 
   def authenticate(unencrypted_password)

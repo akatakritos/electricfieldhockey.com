@@ -42,14 +42,10 @@ class Admin::UsersController < Admin::BaseController
   def create
     @user = User.new(params[:admin_user])
 
-    respond_to do |format|
-      if @user.save
-        format.html { redirect_to(@user, :notice => 'User was successfully created.') }
-        format.xml  { render :xml => @user, :status => :created, :location => @user }
-      else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @user.errors, :status => :unprocessable_entity }
-      end
+    if @user.save
+      redirect_to(@user, :notice => 'User was successfully created.')
+    else
+     render :action => "new"
     end
   end
 
@@ -58,14 +54,10 @@ class Admin::UsersController < Admin::BaseController
   def update
     @user = User.find(params[:id])
 
-    respond_to do |format|
-      if @user.update_attributes(params[:admin_user])
-        format.html { redirect_to(@user, :notice => 'User was successfully updated.') }
-        format.xml  { head :ok }
-      else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @user.errors, :status => :unprocessable_entity }
-      end
+    if @user.update_attributes(params[:user])
+      redirect_to(admin_user_path(@user), :notice => 'User was successfully updated.')
+    else
+      render :action => "edit"
     end
   end
 
