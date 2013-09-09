@@ -54,7 +54,13 @@ class Admin::UsersController < Admin::BaseController
   def update
     @user = User.find(params[:id])
 
-    if @user.update_attributes(params[:user])
+    # use attributes instead of update_attributes because the latter will not update the protected
+    # admin attribute. Since we are in the admin portal, this level of security is not needed. But we
+    # still need to manually set the admin property if needed
+    @user.attributes = params[:user]
+    @user.admin = params[:user][:admin]
+
+    if @user.save
       redirect_to(admin_user_path(@user), :notice => 'User was successfully updated.')
     else
       render :action => "edit"

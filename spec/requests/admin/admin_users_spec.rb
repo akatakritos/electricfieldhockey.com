@@ -3,7 +3,11 @@ require 'spec_helper'
 def modify_user(user, properties={})
   visit edit_admin_user_path(user)
   properties.each do |key,value|
-    fill_in "user_#{key}", :with => value
+    if !!value == value
+      find(:css, "#user_#{key}").set(true)
+    else
+      fill_in "user_#{key}", :with => value
+    end
   end
   click_button "Update User"
 end
@@ -43,6 +47,28 @@ describe "Admin::Users" do
     it 'should not sign the admin out when editing himself' do
       modify_user(@admin_user)
       signed_in?(@admin_user).should be_true
+    end
+
+    describe 'making a user an admin' do
+      before do
+        @user = user
+        modify_user(@user, :admin => true)
+      end
+
+      it 'should make the user an admin' do
+        @user.reload.admin?.should be_true
+      end
+    end
+
+    describe 'removing admin status from a user' do
+      before do
+        @user = FactoryGirl.create(:admin_user)
+        modify_user(@user, :admin => false)
+      end
+
+      it 'should remove the admin flag' do
+        @user.reload.admin?.should be_false
+      end
     end
   end
 end
