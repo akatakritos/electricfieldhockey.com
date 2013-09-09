@@ -4,7 +4,7 @@ def modify_user(user, properties={})
   visit edit_admin_user_path(user)
   properties.each do |key,value|
     if !!value == value
-      find(:css, "#user_#{key}").set(true)
+      find(:css, "#user_#{key}").set(value)
     else
       fill_in "user_#{key}", :with => value
     end
