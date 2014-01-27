@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.0.3'
+gem 'rails', '3.2.13'
 gem 'rake'
 gem "jquery-rails", "~> 3.0.4"
 #gem "will_paginate-bootstrap"
