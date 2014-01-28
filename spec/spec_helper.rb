@@ -1,7 +1,5 @@
 require 'rubygems'
-require 'spork'
 
-Spork.prefork do
   # This file is copied to spec/ when you run 'rails generate rspec:install'
   ENV["RAILS_ENV"] ||= 'test'
   require File.expand_path("../../config/environment", __FILE__)
@@ -43,10 +41,3 @@ Spork.prefork do
     config.include Capybara::DSL
     config.include Rails.application.routes.url_helpers
   end
-end
-
-Spork.each_run do
-  Dir["#{Rails.root}/app/models/**/*.rb"].each do |model|
-    load model
-  end
-end

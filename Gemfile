@@ -1,12 +1,9 @@
 source 'http://rubygems.org'
 
 gem 'rails', '3.2.13'
-gem 'rake'
-gem "jquery-rails", "~> 3.0.4"
-#gem "will_paginate-bootstrap"
+gem "jquery-rails"
 gem 'bcrypt-ruby'
 gem 'json'
-gem 'yaml_db', '0.2.2'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -33,19 +30,11 @@ gem 'sqlite3-ruby', :require => 'sqlite3'
 # put test-only gems in this group so their generators
 # and rake tasks are available in development mode:
 group :development, :test do
-   #gem 'webrat'
-  gem 'railties', '3.0.3'
-  gem 'annotate', '2.4.0'
   gem 'rspec-rails'
   gem 'factory_girl', '<3.0.0'
-  gem 'capybara', '<=2.0.3'
-  gem 'nokogiri', '<1.6'
-  gem 'guard'
-  gem 'guard-spork'
-  gem 'guard-rspec'
-  gem 'childprocess'
-  gem 'growl'
-  gem 'spork'
+  gem 'nokogiri', '1.5.10'
+  gem 'capybara', '2.0.0'
+  gem 'rubyzip', '0.9.9'
 end
 
 group :production do
