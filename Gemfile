@@ -38,5 +38,5 @@ group :development, :test do
 end
 
 group :production do
-  gem 'activerecord-mysql2-adapter'
+  gem 'mysql'
 end
