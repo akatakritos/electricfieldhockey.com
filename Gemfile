@@ -35,6 +35,9 @@ group :development, :test do
   gem 'nokogiri', '1.5.10'
   gem 'capybara', '2.0.0'
   gem 'rubyzip', '0.9.9'
+  gem 'guard', '~>1.8.3'
+  gem 'guard-spork'
+  gem 'guard-rspec'
 end
 
 group :production do
