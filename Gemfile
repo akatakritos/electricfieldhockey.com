@@ -33,10 +33,9 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'factory_girl', '<3.0.0'
   gem 'nokogiri', '1.5.10'
-  gem 'capybara', '2.0.0'
+  gem 'capybara', '~>2.0.0'
   gem 'rubyzip', '0.9.9'
   gem 'guard', '~>1.8.3'
-  gem 'guard-spork'
   gem 'guard-rspec'
 end
 

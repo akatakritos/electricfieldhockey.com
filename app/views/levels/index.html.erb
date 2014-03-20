@@ -2,7 +2,7 @@
 <h1>Levels</h1>
 
 <ul class='level-list'>
-  <%= render :partial => 'shared/level_list_item', :collection => @levels %>
+  <%= render :partial => 'shared/level_list_item', :collection => @levels, :locals => { :show_delete => false } %>
 </ul>
 
 

@@ -2,7 +2,7 @@
 <div class='row'>
   <div class='span4'>
     <ul class='level-list'>
-      <%= render :partial => 'shared/level_list_item',  :object => @level %>
+      <%= render :partial => 'shared/level_list_item',  :object => @level, :locals => {:show_delete => false} %>
     </ul>
   </div>
   <div class='span8'>

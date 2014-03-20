@@ -23,5 +23,6 @@ ElectricFieldHockey::Application.routes.draw do
 
   namespace :admin do
     resources :users
+    resources :levels
   end
 end

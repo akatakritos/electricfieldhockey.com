@@ -21,7 +21,7 @@
   <div class='span8'>
     <h3><%= @user.username %>'s Levels</h3>
     <ul class='level-list'>
-      <%= render :partial => 'shared/level_list_item', :collection => @user.levels %>
+      <%= render :partial => 'shared/level_list_item', :collection => @user.levels, :locals => { :show_delete => false } %>
     </ul>
   </div>
 </div>
