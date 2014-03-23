@@ -10,116 +10,131 @@
       </ul>
     </div>
   <% end %>
-  <%# f.hidden_field :json, :'data-bind'=>'value: ko.toJSON($root)' %>
   <fieldset>
     <legend>Level</legend>
     <div class='row'>
-      <div class='span6'>
-        <div class='control-group'>
-          <%= f.label :name, :class=>'control-label' %>
-          <div class='controls'>
-            <%= f.text_field :name, :placeholder=>'Name', :"data-bind" =>'value: name' %>
-          </div>
-        </div>
-        <div class='control-group'>
-          <label class='control-label'>Size</label>
-          <div class='controls'>
-            <%= text_field_tag 'level[json][width]', f.object['json']['width'],:placeholder=>'Width', :class=>'input-mini', :'data-bind'=>'value: width' %>
-            <%= text_field_tag 'level[json][height]', f.object['json']['height'], :placeholder=>'Height', :class=>'input-mini', :'data-bind'=>'value: height' %>
-          </div>
-        </div>
-        <div class='control-group'>
-          <label class='control-label'>Puck Position</label>
-          <div class='controls'>
-            <%= text_field_tag 'level[json][puckPosition][x]', f.object['json']['puckPosition']['x'],:placeholder=>'x', :class=>'input-mini', :'data-bind'=>'value: puckPosition.x' %>
-            <%= text_field_tag 'level[json][puckPosition][y]', f.object['json']['puckPosition']['y'], :placeholder=>'y', :class=>'input-mini', :'data-bind'=>'value: puckPosition.y' %>
-          </div>
-        </div>
-        <div class='control-group'>
-          <label class='control-label'>Starting Charges</label>
-          <div class='controls'>
-            <%= text_field_tag 'level[json][startingCharges]', f.object['json']['startingCharges'],:placeholder=>'x', :'data-bind'=>'value: startingCharges' %>
-          </div>
-        </div>
-      </div>
-      <div class='span6'>
-        <div class='control-group'>
-          <label class='control-label'>Background</label>
-          <div class='controls'>
-            <div class='input-append'>
-              <%= text_field_tag 'level[json][backgroundUrl]', f.object['json']['backgroundUrl'], :placeholder=>'/public/uploads/maps/bg.png', :'data-bind'=>'value: backgroundUrl' %>
-              <a href='#upload-modal' class='btn' type='button', data-toggle='modal'><i class='icon-upload'></i> Upload</a>
-            </div>
-          </div>
-        </div>
-        <%= image_tag f.object['json']['backgroundUrl'], :alt => 'Background Image', :id => 'background', 
-        :class => 'form-image' + (f.object['json']['backgroundUrl'].empty? ? ' invisible' : '') %>
-        <p>Create an image the same size as your level and fill it with transparency. Anything you then draw
-        on the image will become an obstacle.</p>
-      </div>
-    </div>
-  </fieldset>
+      <div class='span12'>
+        <%= f.label :name, :class=>'control-label' %>
+        <%= f.text_field :name, :placeholder=>'Name', :"data-bind" =>'value: name' %>
 
-  <fieldset>
-    <legend>Goal</legend>
-    <div class='control-group'>
-      <label class='control-label'>Size</label>
-      <div class='controls'>
-        <%= text_field_tag 'level[json][goal][width]', f.object['json']['goal']['width'], :placeholder=>'Width', :class=>'input-mini', :'data-bind'=>'value: goal.width' %>
-        <%= text_field_tag 'level[json][goal][height]', f.object['json']['goal']['height'], :placeholder=>'Height', :class=>'input-mini', :'data-bind'=>'value: goal.height' %>
+        <div id='editor'></div>
+        <div id='game'></div>
+        <div id='step-1'>
+          <button class='btn btn-primary' id='editgoal'>Add Puck & Goal</button>
+        </div>
+
+        <div id='step-2'>
+          <button class='btn btn-secondary' id='back-to-step1'>Back</button>
+          Positive Charges: <input type='number' id='positives' value='3'  />
+          Negative Charges: <input type='number' id='negatives' value='3' />
+          <button class='btn btn-primary' id='test'>Test</button>
+        </div>
+
+        <div id='step-3'>
+          <button class='btn' id='back-to-step2'>Back</button>
+          <button class='btn btn-primary' id='create'>Create Level</button>
+        </div>
+
       </div>
     </div>
-    <div class='control-group'>
-      <label class='control-label'>Position</label>
-      <div class='controls'>
-        <%= text_field_tag 'level[json][goal][x]', f.object['json']['goal']['x'], :placeholder=>'x', :class=>'input-mini', :'data-bind'=>'value: goal.x' %>
-        <%= text_field_tag 'level[json][goal][y]', f.object['json']['goal']['y'], :placeholder=>'y', :class=>'input-mini', :'data-bind'=>'value: goal.y' %>
-      </div>
-    </div>
-  </fieldset>
-  <div class="actions">
-    <%= f.submit :class=>'btn btn-primary' %>
-  </div>
 
 <% end %>
 
-<div id='upload-modal' class='modal hide fade' tabindex='-1' role='dialog' aria-labelledby='upload-modal-title' aria-hidden='true'>
-  <div class='modal-header'>
-    <a href='#' class='close' data-dismiss='modal'>&times;</a>
-    <h3 id='upload-modal-title'>Choose a background image to upload</h3>
-  </div>
-  <div class='modal-body'>
-    <div class='modal-elements'>
-      <form id='uploadform' enctype="multipart/form-data">
-        <%= file_field_tag 'image' %>
-      </form>
-    </div>
-  </div>
-  <div class='modal-footer'>
-    <button class='btn' data-dismiss='modal' aria-hidden='true'>Close</button>
-    <button class='btn btn-primary' id='upload'>Upload</button>
-  </div>
-</div>
-
 <script type='text/javascript'>
-  $('#upload').click(function() {
-    var data = new FormData($('#uploadform')[0]);
+$(document).ready(function() {
+  var sim;
+
+  var setStep = function(step) {
+    for(var i = 1; i <= 3; i++) {
+      if (step === i) {
+        $('#step-'+i).show();
+      } else {
+        $('#step-'+i).hide();
+      }
+    }
+  };
+
+  var editor = new EFH.LevelEditor('editor', {
+    width: 850,
+    height: 400
+  });
+
+  $('#editgoal').click(function(e) {
+    e.preventDefault();
+
+    editor.editGoal();
+    setStep(2);
+  });
+
+  $('#test').click(function(e) {
+    e.preventDefault();
+      var gameData = editor.getData();
+      gameData.fixedCharges = [];
+
+      var positives = $('#positives').val();
+      var negatives = $('#negatives').val();
+      gameData.startingCharges = [];
+
+      for (var i = 0; i < positives; i++) {
+        gameData.startingCharges.push(1);
+        }
+
+        for (var i = 0; i < negatives; i++) {
+        gameData.startingCharges.push(-1);
+        }
+
+      sim.init(gameData);
+      $('#editor').hide();
+      $('#game').show();
+      setStep(3);
+  });
+
+  $('#back-to-step1').click(function(e) {
+    e.preventDefault();
+    editor.draw();
+    setStep(1);
+  });
+
+  $('#back-to-step2').click(function(e) {
+    e.preventDefault();
+    setStep(2);
+    $('#editor').show();
+    $('#game').hide();
+  });
+    
+
+  EFH.createGame({container: 'game'}, function(game) {
+    sim = game;
+  });
+
+  setStep(1);
+  $('#game').hide();
+
+  $('#create').click(function(e) {
+    e.preventDefault();
+    var levelData = editor.getData();
+    var post = {
+      level: {
+        name: $('#level_name').val(),
+        json: levelData
+      }
+    };
+
+    if (post.level.name == '') {
+      post.level.name = "My Level";
+    }
 
     $.ajax({
-      url : '<%= background_path %>',
-      type: "POST",
-      data : data,
-      cache: false,
-      contentType : false,
-      processData : false,
-      success : function( data, status, xhr ) {
-        $('#level_json_backgroundUrl').val( data.url );
-        $('#background').attr('src', data.url).removeClass('invisible');
-        $('#upload-modal').modal('hide');
-      },
-      error : function ( xhr, status, error ) {
-        alert( status + error + xhr.response );
-      }
+      type: 'POST',
+      url: '/levels', 
+      data: JSON.stringify(post),
+      contentType:"application/json; charset=utf-8",
+      dataType: 'json'}).success(function(d) {
+        window.location = '/levels/' + d.level.id;
     });
   });
+
+
+
+});
 </script>
