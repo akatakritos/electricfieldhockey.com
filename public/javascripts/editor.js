@@ -62,7 +62,8 @@ LevelEditor.prototype.init = function() {
 
   setTimeout(function() {
     self._drawingBoard = new DrawingBoard.Board(board.id, {
-      background: false
+      background: false,
+      webStorage: false
     });
   }, 0);
 };
