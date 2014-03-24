@@ -242,8 +242,8 @@ LevelEditor.prototype.addPuck = function(layer) {
 
 LevelEditor.prototype.goal = function () {
   return {
-    x: this._goal.parent.getX(),
-    y: this._goal.parent.getY(),
+    x: this._goal.parent.getX() + this._goal.getX(),
+    y: this._goal.parent.getY() + this._goal.getY(),
     width: this._goal.getWidth(),
     height: this._goal.getHeight()
   };
