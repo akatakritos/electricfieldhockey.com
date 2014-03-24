@@ -100,16 +100,6 @@ describe "LevelsSpecs" do
 
       it 'should have the form' do
         page.should have_field 'level_name'
-        page.should have_field 'level_json_width'
-        page.should have_field 'level_json_height'
-        page.should have_field 'level_json_puckPosition_x'
-        page.should have_field 'level_json_puckPosition_y'
-        page.should have_field 'level_json_startingCharges'
-        page.should have_field 'level_json_backgroundUrl'
-        page.should have_field 'level_json_goal_width'
-        page.should have_field 'level_json_goal_height'
-        page.should have_field 'level_json_goal_x'
-        page.should have_field 'level_json_goal_y'
       end
 
       it_should_behave_like 'all pages'

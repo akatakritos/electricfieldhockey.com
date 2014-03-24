@@ -15,7 +15,6 @@
     <%= link_to('Delete', admin_level_path(level_list_item), 
                 :class => 'btn btn-danger btn-mini pull-left', 
                 :method => :delete) if (show_delete) %>
-    <%= link_to('Edit', edit_level_path(level_list_item), :class => 'btn btn-mini') if current_user?(level_list_item.creator) %>
     <%= link_to 'Play', level_path(level_list_item), :class => 'btn btn-primary btn-mini' %>
   </div>
 </li>
