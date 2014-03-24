@@ -1,5 +1,5 @@
 .nav .icon-chevron-right {
-	float: right;
+  float: right;
 }
 .field_with_errors {
   @extend .control-group;
@@ -8,68 +8,97 @@
  
 .form-image { border: 1px solid black; }
 .invisible {
-	visibility: none;
+  visibility: none;
 }
 .attempt-count{ font-size: 1.2em;}
 footer {
-	text-align: center;
+  text-align: center;
 }
 
 .level-thumbnail {
-	margin-right: 5px;
-	max-width: 200px;
-	max-height: 200px;
-	text-align: center;
+  margin-right: 5px;
+  max-width: 200px;
+  max-height: 200px;
+  text-align: center;
 }
 
 .level-thumbnail img {
-	border: 1px solid black;
-	background-color: white;
+  border: 1px solid black;
+  background-color: white;
 }
 /*
 li.level-list {
-	padding: 10px;
-	list-style-type: none;
+  padding: 10px;
+  list-style-type: none;
 }
 
 li .level-details {
-	display: inline-block;
-	height: 100%;
-	vertical-align: middle;
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
 }*/
 
 .level-list .level-name {
-	margin: 2px;
+  margin: 2px;
 }
 
 .level-list-item {
-	display:inline-block;
-	margin: 10px;
+  display:inline-block;
+  margin: 10px;
 }
 
 .level-list-item .badge {
-	margin-bottom: 5px;
+  margin-bottom: 5px;
 }
 
 .level-actions {
-	float:right;
-	margin-top: 2px;
+  float:right;
+  margin-top: 2px;
 }
 
 .level-edit-link {
-	font-size: 0.8em;
+  font-size: 0.8em;
 }
 
 .scoreboard-link {
-	float: right;
+  float: right;
 }
 
 .created-by {
-	margin-bottom: 7px;
-	margin-top: -7px;
+  margin-bottom: 7px;
+  margin-top: -7px;
 }
 
 .replay-by {
-	margin-bottom: 7px;
-	margin-top: -7px;
+  margin-bottom: 7px;
+  margin-top: -7px;
+}
+
+.pad-for-tray {
+  margin-left: 100px;
+}
+
+.editor-controls {
+  margin-top: 0.5em;
+}
+
+#editor #kinetic {
+  margin-top: 35px;
+}
+
+#game {
+  margin-top: 35px;
+}
+
+.charge-label {
+  height: 30px;
+}
+
+.align-center {
+  text-align: center;
+}
+
+.align-center img {
+  display: inline-block;
+  vertical-align: text-bottom;
 }

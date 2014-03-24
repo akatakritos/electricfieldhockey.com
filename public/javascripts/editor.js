@@ -85,7 +85,7 @@ LevelEditor.prototype.createDrawingBoardElement = function(container) {
   var board = document.createElement('div');
   board.id = 'drawingboard';
   board.setAttribute('style', "width:" + this._options.width + "px; height:" +
-      this._options.height + "px");
+      (this._options.height + 35) + "px");
   container.appendChild(board);
   return board;
 };

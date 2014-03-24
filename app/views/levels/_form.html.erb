@@ -10,29 +10,40 @@
       </ul>
     </div>
   <% end %>
-  <fieldset>
-    <legend>Level</legend>
+    <div class='control-group'>
+      <%= f.text_field :name, :placeholder=>'Name', :"data-bind" =>'value: name', :class => 'span6 pad-for-tray' %>
+    </div>
     <div class='row'>
       <div class='span12'>
-        <%= f.label :name, :class=>'control-label' %>
-        <%= f.text_field :name, :placeholder=>'Name', :"data-bind" =>'value: name' %>
 
-        <div id='editor'></div>
+        <ul class='nav nav-tabs'>
+          <li class='step-1-active active'><a href='#' id='draw'>Draw</a></li>
+          <li class='step-2-active'><a href='#' id='editgoal'>Goal & Charges</a></li>
+          <li class='step-3-active'><a href='#' id='test'>Test It</a></li>
+        </ul>
+        <div id='editor' class='pad-for-tray'></div>
         <div id='game'></div>
-        <div id='step-1'>
-          <button class='btn btn-primary' id='editgoal'>Add Puck & Goal</button>
-        </div>
+        <div id='controls' class='editor-controls pad-for-tray'>
+          <div id='step-2' class='step-2 step-buttons'>
+            <div class='pull-left'>
+              <div class='align-center'>
+                <%= image_tag('/img/positive.png', :class => "charge-label") %> x <input type='text' id='positives' value='3' class='input-small'  /><br/>
+              </div>
+              <div class='align-center'>
+                <%= image_tag('/img/negative.png', :class => "charge-label") %> x <input type='text' id='negatives' value='3' class='input-small' />
+              </div>
+            </div>
+          </div>
 
-        <div id='step-2'>
-          <button class='btn btn-secondary' id='back-to-step1'>Back</button>
-          Positive Charges: <input type='number' id='positives' value='3'  />
-          Negative Charges: <input type='number' id='negatives' value='3' />
-          <button class='btn btn-primary' id='test'>Test</button>
-        </div>
-
-        <div id='step-3'>
-          <button class='btn' id='back-to-step2'>Back</button>
-          <button class='btn btn-primary' id='create'>Create Level</button>
+          <div id='step-3' class='step-3 step-buttons'>
+            <span class='pull-left'>
+              <button type='button' class='btn' id='game-toggle'>Start</button>
+              <button type='button' class='btn' id='game-reset'>Reset</button>
+            </span>
+            <span class='pull-right'>
+              <button class='btn btn-primary' id='create'>Save</button>
+            </span>
+          </div>
         </div>
 
       </div>
@@ -40,101 +51,4 @@
 
 <% end %>
 
-<script type='text/javascript'>
-$(document).ready(function() {
-  var sim;
-
-  var setStep = function(step) {
-    for(var i = 1; i <= 3; i++) {
-      if (step === i) {
-        $('#step-'+i).show();
-      } else {
-        $('#step-'+i).hide();
-      }
-    }
-  };
-
-  var editor = new EFH.LevelEditor('editor', {
-    width: 800,
-    height: 450
-  });
-
-  $('#editgoal').click(function(e) {
-    e.preventDefault();
-
-    editor.editGoal();
-    setStep(2);
-  });
-
-  $('#test').click(function(e) {
-    e.preventDefault();
-      var gameData = editor.getData();
-      gameData.fixedCharges = [];
-
-      var positives = $('#positives').val();
-      var negatives = $('#negatives').val();
-      gameData.startingCharges = [];
-
-      for (var i = 0; i < positives; i++) {
-        gameData.startingCharges.push(1);
-        }
-
-        for (var i = 0; i < negatives; i++) {
-        gameData.startingCharges.push(-1);
-        }
-
-      sim.init(gameData);
-      $('#editor').hide();
-      $('#game').show();
-      setStep(3);
-  });
-
-  $('#back-to-step1').click(function(e) {
-    e.preventDefault();
-    editor.draw();
-    setStep(1);
-  });
-
-  $('#back-to-step2').click(function(e) {
-    e.preventDefault();
-    setStep(2);
-    $('#editor').show();
-    $('#game').hide();
-  });
-    
-
-  EFH.createGame({container: 'game'}, function(game) {
-    sim = game;
-  });
-
-  setStep(1);
-  $('#game').hide();
-
-  $('#create').click(function(e) {
-    e.preventDefault();
-    var levelData = editor.getData();
-    var post = {
-      level: {
-        name: $('#level_name').val(),
-        json: levelData
-      }
-    };
-
-    if (post.level.name == '') {
-      post.level.name = "My Level";
-    }
-
-    $.ajax({
-      type: 'POST',
-      url: '/levels', 
-      data: JSON.stringify(post),
-      contentType:"application/json; charset=utf-8",
-      dataType: 'json'}).success(function(d) {
-        window.location = '/levels/' + d.level.id;
-    });
-  });
-
-
-
-});
-</script>
+<script type='text/javascript' src='/javascripts/newlevel.js'></script>
