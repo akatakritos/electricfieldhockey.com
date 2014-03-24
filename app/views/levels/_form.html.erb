@@ -10,116 +10,45 @@
       </ul>
     </div>
   <% end %>
-  <%# f.hidden_field :json, :'data-bind'=>'value: ko.toJSON($root)' %>
-  <fieldset>
-    <legend>Level</legend>
+    <div class='control-group'>
+      <%= f.text_field :name, :placeholder=>'Name', :"data-bind" =>'value: name', :class => 'span6 pad-for-tray' %>
+    </div>
     <div class='row'>
-      <div class='span6'>
-        <div class='control-group'>
-          <%= f.label :name, :class=>'control-label' %>
-          <div class='controls'>
-            <%= f.text_field :name, :placeholder=>'Name', :"data-bind" =>'value: name' %>
-          </div>
-        </div>
-        <div class='control-group'>
-          <label class='control-label'>Size</label>
-          <div class='controls'>
-            <%= text_field_tag 'level[json][width]', f.object['json']['width'],:placeholder=>'Width', :class=>'input-mini', :'data-bind'=>'value: width' %>
-            <%= text_field_tag 'level[json][height]', f.object['json']['height'], :placeholder=>'Height', :class=>'input-mini', :'data-bind'=>'value: height' %>
-          </div>
-        </div>
-        <div class='control-group'>
-          <label class='control-label'>Puck Position</label>
-          <div class='controls'>
-            <%= text_field_tag 'level[json][puckPosition][x]', f.object['json']['puckPosition']['x'],:placeholder=>'x', :class=>'input-mini', :'data-bind'=>'value: puckPosition.x' %>
-            <%= text_field_tag 'level[json][puckPosition][y]', f.object['json']['puckPosition']['y'], :placeholder=>'y', :class=>'input-mini', :'data-bind'=>'value: puckPosition.y' %>
-          </div>
-        </div>
-        <div class='control-group'>
-          <label class='control-label'>Starting Charges</label>
-          <div class='controls'>
-            <%= text_field_tag 'level[json][startingCharges]', f.object['json']['startingCharges'],:placeholder=>'x', :'data-bind'=>'value: startingCharges' %>
-          </div>
-        </div>
-      </div>
-      <div class='span6'>
-        <div class='control-group'>
-          <label class='control-label'>Background</label>
-          <div class='controls'>
-            <div class='input-append'>
-              <%= text_field_tag 'level[json][backgroundUrl]', f.object['json']['backgroundUrl'], :placeholder=>'/public/uploads/maps/bg.png', :'data-bind'=>'value: backgroundUrl' %>
-              <a href='#upload-modal' class='btn' type='button', data-toggle='modal'><i class='icon-upload'></i> Upload</a>
+      <div class='span12'>
+
+        <ul class='nav nav-tabs'>
+          <li class='step-1-active active'><a href='#' id='draw'>Draw</a></li>
+          <li class='step-2-active'><a href='#' id='editgoal'>Goal & Charges</a></li>
+          <li class='step-3-active'><a href='#' id='test'>Test It</a></li>
+        </ul>
+        <div id='editor' class='pad-for-tray'></div>
+        <div id='game'></div>
+        <div id='controls' class='editor-controls pad-for-tray'>
+          <div id='step-2' class='step-2 step-buttons'>
+            <div class='pull-left'>
+              <div class='align-center'>
+                <%= image_tag('/img/positive.png', :class => "charge-label") %> x <input type='text' id='positives' value='3' class='input-small'  /><br/>
+              </div>
+              <div class='align-center'>
+                <%= image_tag('/img/negative.png', :class => "charge-label") %> x <input type='text' id='negatives' value='3' class='input-small' />
+              </div>
             </div>
           </div>
-        </div>
-        <%= image_tag f.object['json']['backgroundUrl'], :alt => 'Background Image', :id => 'background', 
-        :class => 'form-image' + (f.object['json']['backgroundUrl'].empty? ? ' invisible' : '') %>
-        <p>Create an image the same size as your level and fill it with transparency. Anything you then draw
-        on the image will become an obstacle.</p>
-      </div>
-    </div>
-  </fieldset>
 
-  <fieldset>
-    <legend>Goal</legend>
-    <div class='control-group'>
-      <label class='control-label'>Size</label>
-      <div class='controls'>
-        <%= text_field_tag 'level[json][goal][width]', f.object['json']['goal']['width'], :placeholder=>'Width', :class=>'input-mini', :'data-bind'=>'value: goal.width' %>
-        <%= text_field_tag 'level[json][goal][height]', f.object['json']['goal']['height'], :placeholder=>'Height', :class=>'input-mini', :'data-bind'=>'value: goal.height' %>
+          <div id='step-3' class='step-3 step-buttons'>
+            <span class='pull-left'>
+              <button type='button' class='btn' id='game-toggle'>Start</button>
+              <button type='button' class='btn' id='game-reset'>Reset</button>
+            </span>
+            <span class='pull-right'>
+              <button class='btn btn-primary' id='create'>Save</button>
+            </span>
+          </div>
+        </div>
+
       </div>
     </div>
-    <div class='control-group'>
-      <label class='control-label'>Position</label>
-      <div class='controls'>
-        <%= text_field_tag 'level[json][goal][x]', f.object['json']['goal']['x'], :placeholder=>'x', :class=>'input-mini', :'data-bind'=>'value: goal.x' %>
-        <%= text_field_tag 'level[json][goal][y]', f.object['json']['goal']['y'], :placeholder=>'y', :class=>'input-mini', :'data-bind'=>'value: goal.y' %>
-      </div>
-    </div>
-  </fieldset>
-  <div class="actions">
-    <%= f.submit :class=>'btn btn-primary' %>
-  </div>
 
 <% end %>
 
-<div id='upload-modal' class='modal hide fade' tabindex='-1' role='dialog' aria-labelledby='upload-modal-title' aria-hidden='true'>
-  <div class='modal-header'>
-    <a href='#' class='close' data-dismiss='modal'>&times;</a>
-    <h3 id='upload-modal-title'>Choose a background image to upload</h3>
-  </div>
-  <div class='modal-body'>
-    <div class='modal-elements'>
-      <form id='uploadform' enctype="multipart/form-data">
-        <%= file_field_tag 'image' %>
-      </form>
-    </div>
-  </div>
-  <div class='modal-footer'>
-    <button class='btn' data-dismiss='modal' aria-hidden='true'>Close</button>
-    <button class='btn btn-primary' id='upload'>Upload</button>
-  </div>
-</div>
-
-<script type='text/javascript'>
-  $('#upload').click(function() {
-    var data = new FormData($('#uploadform')[0]);
-
-    $.ajax({
-      url : '<%= background_path %>',
-      type: "POST",
-      data : data,
-      cache: false,
-      contentType : false,
-      processData : false,
-      success : function( data, status, xhr ) {
-        $('#level_json_backgroundUrl').val( data.url );
-        $('#background').attr('src', data.url).removeClass('invisible');
-        $('#upload-modal').modal('hide');
-      },
-      error : function ( xhr, status, error ) {
-        alert( status + error + xhr.response );
-      }
-    });
-  });
-</script>
+<script type='text/javascript' src='/javascripts/newlevel.js'></script>
