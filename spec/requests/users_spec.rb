@@ -63,9 +63,9 @@ describe "Users Specs" do
         sign_in user
       end
 
-      it 'should have edit links' do
+      it 'should not have edit links' do
         user.levels.each do |level|
-          page.should have_link 'Edit', :href => edit_level_path(level)
+          page.should_not have_link 'Edit', :href => edit_level_path(level)
         end
       end
     end
