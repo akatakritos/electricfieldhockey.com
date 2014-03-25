@@ -92,21 +92,22 @@ li .level-details {
   width: 20px;
 }
 
+.step-3 {
+  height: 40px;
+}
+
 .editor-controls {
   margin-top: 0.5em;
 }
 
 #editor #drawingboard {
   margin-left: 100px;
+  margin-top: 25px;
 }
 
 #editor #kinetic {
-  margin-top: 35px;
+  margin-top: 60px;
   margin-left: 100px;
-}
-
-#game {
-  margin-top: 35px;
 }
 
 .charge-label {
