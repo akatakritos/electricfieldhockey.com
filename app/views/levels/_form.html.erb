@@ -21,19 +21,21 @@
           <li class='step-2-active'><a href='#' id='editgoal'>Goal & Charges</a></li>
           <li class='step-3-active'><a href='#' id='test'>Test It</a></li>
         </ul>
-        <div id='editor' class='pad-for-tray'></div>
-        <div id='game'></div>
-        <div id='controls' class='editor-controls pad-for-tray'>
-          <div id='step-2' class='step-2 step-buttons'>
-            <div class='pull-left'>
+        <div>
+          <div id='tray-spacer' class='step-2'>
+            <div id='step-2' class='step-2'>
               <div class='align-center'>
-                <%= image_tag('/img/positive.png', :class => "charge-label") %> x <input type='text' id='positives' value='3' class='input-small'  /><br/>
+                <%= image_tag('/img/positive.png', :class => "charge-label") %> x <input type='text' id='positives' value='3' class='input-small'  />
               </div>
               <div class='align-center'>
                 <%= image_tag('/img/negative.png', :class => "charge-label") %> x <input type='text' id='negatives' value='3' class='input-small' />
               </div>
             </div>
           </div>
+          <div id='editor'></div>
+        </div>
+        <div id='game'></div>
+        <div id='controls' class='editor-controls pad-for-tray'>
 
           <div id='step-3' class='step-3 step-buttons'>
             <span class='pull-left'>

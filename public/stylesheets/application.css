@@ -78,12 +78,31 @@ li .level-details {
   margin-left: 100px;
 }
 
+#tray-spacer {
+  width: 100px;
+  margin: 0 0 0 0;
+  display: inline-block;
+}
+
+.step-2 {
+  float: left;
+}
+
+.step-2 input {
+  width: 20px;
+}
+
 .editor-controls {
   margin-top: 0.5em;
 }
 
+#editor #drawingboard {
+  margin-left: 100px;
+}
+
 #editor #kinetic {
   margin-top: 35px;
+  margin-left: 100px;
 }
 
 #game {
