@@ -36,16 +36,6 @@ class LevelsController < ApplicationController
     end
   end
 
-  # GET /levels/1/edit
-  def edit
-    @level = Level.find(params[:id])
-
-    if @level.creator != current_user
-      flash[:error] = 'Access Denied'
-      redirect_to levels_path
-    end
-  end
-
   # POST /levels
   # POST /levels.json
   def create
@@ -72,36 +62,4 @@ class LevelsController < ApplicationController
     end
   end
 
-  # PUT /levels/1
-  # PUT /levels/1.json
-  def update
-    @level = Level.find(params[:id])
-    if (current_user != @level.creator)
-      flash[:error] = "Access Denied"
-      redirect_to levels_path
-      return
-    end
-
-    respond_to do |format|
-      if @level.update_attributes(params[:level])
-        format.html { redirect_to(@level, :notice => 'Level was successfully updated.') }
-        format.json  { head :ok }
-      else
-        format.html { render :action => "edit" }
-        format.json  { render :json => @level.errors, :status => :unprocessable_entity }
-      end
-    end
-  end
-
-  # DELETE /levels/1
-  # DELETE /levels/1.json
-  def destroy
-    @level = Level.find(params[:id])
-    @level.destroy
-
-    respond_to do |format|
-      format.html { redirect_to(levels_url) }
-      format.json  { head :ok }
-    end
-  end
 end
