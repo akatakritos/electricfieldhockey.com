@@ -106,6 +106,12 @@ $(document).ready(function() {
       }
     };
 
+    $('#create').attr('disabled', 'disabled').text('Saving...');
+
+    var resetButton = function() {
+      $('#create').removeAttr('disabled').text('Save');
+    };
+
     $.ajax({
       type: 'POST',
       url: '/levels', 
@@ -113,7 +119,7 @@ $(document).ready(function() {
       contentType:"application/json; charset=utf-8",
       dataType: 'json'}).success(function(d) {
         window.location = '/levels/' + d.level.id;
-    });
+    }).always(resetButton);
   });
 
 
