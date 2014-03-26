@@ -9,7 +9,7 @@ ElectricFieldHockey::Application.routes.draw do
 
   resources :level_wins, :only => [:create]
 
-  match 'replay/:id', :to => 'LevelWins#show', :as => 'replay'
+  match 'replay/:id', :to => 'level_wins#show', :as => 'replay'
 
   root :to => "static_pages#index"
   match 'sample', :to => 'static_pages#sample'
