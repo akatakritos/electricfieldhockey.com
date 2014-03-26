@@ -19,7 +19,7 @@ ElectricFieldHockey::Application.routes.draw do
   get 'signin', :to => 'sessions#new'
   delete 'signout', :to => 'sessions#destroy'
 
-  get 'signup', :to => 'Users#new'
+  get 'signup', :to => 'users#new'
 
   namespace :admin do
     resources :users
