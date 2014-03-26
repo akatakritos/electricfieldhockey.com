@@ -16,8 +16,8 @@ ElectricFieldHockey::Application.routes.draw do
   match 'tour', :to => 'static_pages#tour'
   post 'background', :to => 'backgrounds#create'
 
-  get 'signin', :to => 'Sessions#new'
-  delete 'signout', :to => 'Sessions#destroy'
+  get 'signin', :to => 'sessions#new'
+  delete 'signout', :to => 'sessions#destroy'
 
   get 'signup', :to => 'Users#new'
 
