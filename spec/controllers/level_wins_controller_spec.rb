@@ -15,6 +15,14 @@ describe LevelWinsController do
     end
   end
 
+  describe 'GET index' do
+    it 'sets the *level* with the passed id' do
+      level = FactoryGirl.create(:level)
+      get :index, :level_id => level.id
+      expect(assigns(:level)).to eq(level)
+    end
+  end
+
   describe 'POST #create' do
     describe 'when signed in' do
       before(:each) do
