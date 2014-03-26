@@ -1,3 +1,23 @@
+def level_json(n)
+      {
+        "name" => "Level #{n}",
+        "width" => 800,
+        "height" => 450,
+        "goal" => {
+          "x" => 775,
+          "y" => 175,
+          "width" => 25,
+          "height" => 100
+        },
+        "backgroundUrl" => "",
+        "puckPosition" => {
+          "x"  => 100,
+          "y" => 50
+        },
+        "startingCharges" => '1,-1,1,-1,1,-1'
+      }
+end
+
 FactoryGirl.define do
   factory :user do 
     sequence :email do |n|
@@ -25,25 +45,25 @@ FactoryGirl.define do
     end
 
     sequence :json do |n|
-      {
-        "name" => "Level #{n}",
-        "width" => 800,
-        "height" => 450,
-        "goal" => {
-          "x" => 775,
-          "y" => 175,
-          "width" => 25,
-          "height" => 100
-        },
-        "backgroundUrl" => "",
-        "puckPosition" => {
-          "x"  => 100,
-          "y" => 50
-        },
-        "startingCharges" => '1,-1,1,-1,1,-1'
-      }
+      level_json(n)
     end
 
     association :creator, :factory => :user
+  end
+
+  factory :level_win do |n|
+    sequence :level_json do |n|
+      level_json(n).to_json
+    end
+
+    sequence :game_state do |n|
+      "Game State #{n}"
+    end
+
+    sequence(:attempts) { |n| n }
+    sequence(:time) { |n| rand(60) }
+
+    association :level
+    association :user
   end
 end

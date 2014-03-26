@@ -11,10 +11,6 @@ class LevelWinsController < ApplicationController
     end
   end
 
-  def index
-    @level = Level.find(params[:level_id])
-  end
-
   def show
     @level_win = LevelWin.find(params[:id])
     @level = @level_win.level

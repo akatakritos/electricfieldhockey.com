@@ -9,17 +9,17 @@ ElectricFieldHockey::Application.routes.draw do
 
   resources :level_wins, :only => [:create]
 
-  match 'replay/:id', :to => 'LevelWins#show', :as => 'replay'
+  match 'replay/:id', :to => 'level_wins#show', :as => 'replay'
 
   root :to => "static_pages#index"
   match 'sample', :to => 'static_pages#sample'
   match 'tour', :to => 'static_pages#tour'
   post 'background', :to => 'backgrounds#create'
 
-  get 'signin', :to => 'Sessions#new'
-  delete 'signout', :to => 'Sessions#destroy'
+  get 'signin', :to => 'sessions#new'
+  delete 'signout', :to => 'sessions#destroy'
 
-  get 'signup', :to => 'Users#new'
+  get 'signup', :to => 'users#new'
 
   namespace :admin do
     resources :users
