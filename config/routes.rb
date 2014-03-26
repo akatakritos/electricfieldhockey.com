@@ -2,7 +2,7 @@ ElectricFieldHockey::Application.routes.draw do
   resources :users, :only => [:create, :show, :index]
 
   resources :levels do
-    match 'scoreboard', :to => 'LevelWins#index'
+    match 'scoreboard', :to => 'level_wins#index'
   end
 
   resources :sessions, :only => [ :create, :destroy ]
