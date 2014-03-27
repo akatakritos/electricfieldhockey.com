@@ -1,10 +1,11 @@
 require 'digest/md5'
 class LevelsController < ApplicationController
   before_filter :signed_in_user, :except => [:show, :index]
+
   # GET /levels
   # GET /levels.json
   def index
-    @levels = Level.all
+    @levels = Level.paginate(:page => params[:page], :per_page => 10)
 
     respond_to do |format|
       format.html # index.html.erb

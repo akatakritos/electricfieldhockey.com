@@ -1,6 +1,7 @@
 <% @title = 'Levels' %>
 <h1>Levels</h1>
 
+<%= will_paginate(@levels, :previous_label => "«", :next_label => "»") %>
 <ul class='level-list'>
   <%= render :partial => 'shared/level_list_item', :collection => @levels, :locals => { :show_delete => false } %>
 </ul>
