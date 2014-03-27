@@ -7,7 +7,7 @@ class LevelsController < ApplicationController
   def index
 
     @sorter = LevelSorter.new(params)
-    @levels = Level.order("#{@sorter.column} #{@sorter.direction}").paginate(:page => params[:page], :per_page => 10)
+    @levels = Level.order("#{@sorter.column} #{@sorter.direction}").paginate(:page => params[:page], :per_page => 12)
 
     respond_to do |format|
       format.html # index.html.erb

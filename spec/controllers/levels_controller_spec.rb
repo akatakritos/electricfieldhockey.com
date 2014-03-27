@@ -10,10 +10,10 @@ describe LevelsController do
     end
 
     describe 'pagination and sorting' do
-      it 'paginates to 10' do
+      it 'paginates to 12' do
         15.times { FactoryGirl.create(:level) }
         get :index
-        expect(assigns(:levels).length).to eq(10)
+        expect(assigns(:levels).length).to eq(12)
       end
 
       

@@ -30,12 +30,12 @@ describe "LevelsSpecs" do
   end
 
   describe 'Levels index pagination' do
-    describe 'with more than 10 items' do
+    describe 'with more than 12 items' do
       before do
         15.times { FactoryGirl.create(:level) }
       end
 
-      it 'should paginate to 10 levels' do
+      it 'should paginate to 12 levels' do
         visit levels_path
         expect(page).to have_selector('div.pagination')
         expect(page).to have_selector('div.pagination li', '1')
