@@ -51,6 +51,21 @@ describe "LevelsSpecs" do
     end
   end
 
+  describe 'Level index sorting' do
+    before { visit levels_path }
+    it 'should be sortable by age' do
+      expect(page).to have_selector('.btn-group a', 'Age')
+    end
+
+    it 'should be sortable by wins' do
+      expect(page).to have_selector('.btn-group a', 'Wins')
+    end
+
+    it 'should be sortable by views' do
+      expect(page).to have_selector('.btn-group a', 'Views')
+    end
+  end
+
   describe 'New Level' do
     describe 'as unauthorized user' do
       it 'should redirect to login' do

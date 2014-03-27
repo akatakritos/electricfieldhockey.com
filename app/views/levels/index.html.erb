@@ -1,10 +1,12 @@
 <% @title = 'Levels' %>
 <h1>Levels</h1>
 
-<%= will_paginate(@levels, :previous_label => "«", :next_label => "»") %>
+<%= sorter_block(@sorter) %>
+<%= link_to 'New Level', new_level_path %>
+
 <ul class='level-list'>
   <%= render :partial => 'shared/level_list_item', :collection => @levels, :locals => { :show_delete => false } %>
 </ul>
+<%= will_paginate(@levels, :previous_label => "«", :next_label => "»", :class=>"pagination pagination-right") %>
 
 
-<%= link_to 'New Level', new_level_path %>
