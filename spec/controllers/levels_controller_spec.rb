@@ -8,6 +8,62 @@ describe LevelsController do
       get :index
       expect(assigns(:levels)).to eq([level])
     end
+
+    describe 'pagination and sorting' do
+      it 'paginates to 10' do
+        15.times { FactoryGirl.create(:level) }
+        get :index
+        expect(assigns(:levels).length).to eq(10)
+      end
+
+      
+      describe 'sorting by create date' do
+        let!(:first) { FactoryGirl.create(:level) }
+        let!(:second) { sleep(0.5); FactoryGirl.create(:level) }
+
+        it 'sorts by create date by default' do
+          get :index
+          expect(assigns(:levels)).to eq [first, second]
+        end
+
+        it 'can sort asc' do
+          get :index, 'sort' => 'age'
+          expect(assigns(:levels)).to eq([first, second])
+        end
+
+        it 'can sort desc' do
+          get :index, 'sort' => 'age', 'dir' => 'desc'
+          expect(assigns(:levels)).to eq([second, first])
+        end
+      end
+
+
+      describe 'sorting by views' do
+        let!(:first) { FactoryGirl.create(:level, :view_count => 100) }
+        let!(:second) { FactoryGirl.create(:level, :view_count => 10) }
+        it 'can sort by views asc' do
+          get :index, "sort" => "views", "dir" => "asc"
+          expect(assigns(:levels)).to eq([second, first])
+        end
+        it 'can sort by views desc' do
+          get :index, "sort" => "views", "dir" => "desc"
+          expect(assigns(:levels)).to eq([first, second])
+        end
+      end
+
+      describe 'sorting by wins' do
+        let!(:first) { FactoryGirl.create(:level, :level_wins_count => 100) }
+        let!(:second) { FactoryGirl.create(:level, :level_wins_count => 10) }
+        it 'can sort by wins asc' do
+          get :index, 'sort' => 'wins', 'dir' => 'asc'
+          expect(assigns(:levels)).to eq [second, first]
+        end
+        it 'can sort by wins desc' do
+          get :index, 'sort' => 'wins', 'dir' => 'desc'
+          expect(assigns(:levels)).to eq [first, second]
+        end
+      end
+    end
   end
 
   describe 'signed in actions' do
