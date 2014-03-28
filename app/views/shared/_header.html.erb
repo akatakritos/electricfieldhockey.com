@@ -1,6 +1,7 @@
 <div class='navbar'>
   <div class='navbar-inner'>
   <%= link_to 'Electric Field Hockey', root_path, :class => 'brand' %>
+  <% if Rails.env.development? %> <span class='label label-success'>development</span><% end %>
   <ul class='nav pull-right'>
     <li> <%= link_to 'Help', tour_path %></li>
     <li><%= link_to 'Levels', levels_path %></li>
