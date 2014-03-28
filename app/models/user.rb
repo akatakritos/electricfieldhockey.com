@@ -26,7 +26,7 @@ class User < ActiveRecord::Base
   end
 
   def to_param
-    "#{self.id}-#{self.username}"
+    "#{self.id}-#{self.username}".parameterize
   end
 
   def password=(unencrypted_password)
