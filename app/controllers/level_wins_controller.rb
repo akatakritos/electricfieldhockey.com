@@ -12,7 +12,7 @@ class LevelWinsController < ApplicationController
   end
 
   def index
-    @level = Level.find(params[:level_id])
+    @level = Level.includes(:level_wins => :user).find(params[:level_id])
   end
 
   def show
