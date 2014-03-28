@@ -44,14 +44,14 @@ class LevelsController < ApplicationController
   def create
     @level = Level.new(params[:level])
 
-    filename = Digest::MD5.hexdigest(params[:level][:json]['backgroundUrl'])+".png"
+    base64png = params[:level][:json]['backgroundUrl']
+    filename  = Digest::MD5.hexdigest(base64png) + ".png"
 
     File.open(File.join('public','uploads','maps', filename), 'wb') do |f|
-      f.write(Base64.decode64(params[:level][:json]['backgroundUrl'].sub('data:image/png;base64,','')))
+      f.write(Base64.decode64(base64png.sub('data:image/png;base64,','')))
     end
+
     @level.json["backgroundUrl"] = "/uploads/maps/#{filename}"
-
-
     @level.creator = current_user
 
     respond_to do |format|

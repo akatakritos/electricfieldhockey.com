@@ -103,6 +103,16 @@ describe LevelsController do
           }
         }
       }
+
+      # delete the saved background image if it exists
+      after(:each) do
+        if assigns(:level)
+          background_file = 'public' + assigns(:level).json['backgroundUrl']
+
+          FileUtils.rm background_file if File.exist?(background_file)
+        end
+      end
+
       it 'creates a level for the current user' do
         post :create, level_json
         expect(assigns(:level).creator).to eq(@current_user)
@@ -129,7 +139,10 @@ describe LevelsController do
       it 'saves a valid png file' do
         post :create, level_json
         level = assigns(:level)
-        expect(`file public/#{level.json['backgroundUrl']}`).to match /PNG image data/
+        image_file = 'public' + level.json['backgroundUrl']
+
+        expect(File.exist?(image_file)).to be_true
+        expect(`file #{image_file}`).to match /PNG image data/
       end
     end
   end
