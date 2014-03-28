@@ -13,7 +13,7 @@
     <td><%= link_to user.username, user_path(user) %></td>
     <td><%= user.name %></td>
     <td><span title='<%= user.created_at %>'><%= time_ago_in_words(user.created_at) %></span></td>
-    <td><%= user.levels.count if user.levels.any? %></td>
+    <td><%= user.levels_count if user.levels_count > 0 %></td>
   </tr>
 <% end %>
 </table>
