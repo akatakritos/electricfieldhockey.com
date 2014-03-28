@@ -34,6 +34,10 @@ class Level < ActiveRecord::Base
       "startingCharges" => '1,-1,1,-1,1,-1'
     }
   end
+
+  def to_param
+    "#{id}-#{name}".parameterize
+  end
 end
 
 # == Schema Information
