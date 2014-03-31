@@ -1,5 +1,6 @@
 $(document).ready(function() {
-  var sim;
+  var sim,
+      currGameData;
 
   var setStep = function(step) {
     for(var i = 1; i <= 3; i++) {
@@ -52,6 +53,7 @@ $(document).ready(function() {
         }
 
       sim.init(gameData);
+      currGameData = gameData;
       $('#editor').hide();
       $('#game').show();
       setStep(3);
@@ -98,7 +100,7 @@ $(document).ready(function() {
 
       return;
     }
-    var levelData = editor.getData();
+    var levelData = currGameData;
     var post = {
       level: {
         name: $('#level_name').val(),
