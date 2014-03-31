@@ -23,7 +23,7 @@ describe "LevelsSpecs" do
     end
 
     it 'should have new level link' do
-      page.should have_link('New Level', new_level_path)
+      page.should have_link('Create a Level', new_level_path)
     end
 
     it_should_behave_like 'all pages'

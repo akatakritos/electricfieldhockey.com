@@ -1,4 +1,7 @@
 <li id='<%= level_list_item.id %>' class='level-list-item well'>
+<% if level_list_item.respond_to?(:label) %>
+  <div class='level-label'><%= level_list_item.label %></div>
+<% end %>
 <div>
 <span class='badge badge-inverse' title='Views'><%= level_list_item.view_count %></span>
 <span class='badge badge-success' title='Victories'><%= level_list_item.level_wins_count %></span>

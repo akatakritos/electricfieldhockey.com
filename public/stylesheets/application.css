@@ -26,6 +26,13 @@ footer {
   border: 1px solid black;
   background-color: white;
 }
+
+.level-label {
+  text-align: center;
+  font-size: 1.5em;
+  margin-bottom: 0.5em;
+}
+
 /*
 li.level-list {
   padding: 10px;
@@ -40,6 +47,10 @@ li .level-details {
 
 .level-list .level-name {
   margin: 2px;
+}
+
+.level-list.featured {
+  background-color: rgb(228, 239, 255);
 }
 
 .level-list-item {
