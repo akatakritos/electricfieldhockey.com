@@ -9,11 +9,24 @@ describe LevelsController do
       expect(assigns(:levels)).to eq([level])
     end
 
+    it 'assigns featured levels' do
+      get :index
+      expect(assigns(:featured_levels)).to_not be_nil
+    end
+
+    it 'does not assign overlap with the featured levels' do
+      get :index
+      featured_levels = assigns(:featured_levels)
+      featured_levels.each do |level|
+        expect(assigns(:levels)).to_not include(level)
+      end
+    end
+
     describe 'pagination and sorting' do
-      it 'paginates to 12' do
+      it 'paginates to 9' do
         15.times { FactoryGirl.create(:level) }
         get :index
-        expect(assigns(:levels).length).to eq(12)
+        expect(assigns(:levels).length).to eq(9)
       end
 
       

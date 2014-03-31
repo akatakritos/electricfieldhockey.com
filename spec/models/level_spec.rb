@@ -27,4 +27,31 @@ describe Level do
     level.reload
     expect(level.json).to be_a(Hash)
   end
+
+  describe 'featured levels' do
+    describe 'newest' do
+      it 'gets the newest by created_at/id' do
+        one = FactoryGirl.create(:level)
+        two = FactoryGirl.create(:level)
+        expect(Level.newest).to eq two
+      end
+    end
+
+    describe 'hardest' do
+      it 'gets the one with the lowest win percent' do
+        one = FactoryGirl.create(:level, :level_wins_count => 5, :view_count => 10)
+        two = FactoryGirl.create(:level, :level_wins_count => 1, :view_count => 10)
+        expect(Level.hardest).to eq two
+      end
+    end
+
+    describe 'random' do
+      it 'gets a random and excludes certain elements' do
+        one = FactoryGirl.create(:level)
+        two = FactoryGirl.create(:level)
+        expect(Level.random(:excluding => [one])).to eq two
+      end
+    end
+  end
+
 end
