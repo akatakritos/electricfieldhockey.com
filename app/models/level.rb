@@ -63,7 +63,7 @@ class Level < ActiveRecord::Base
         when /sqlite/
           "RANDOM()"
         when /mysql/
-          "RANDOM()";
+          "RAND()";
       end
     end
 end
