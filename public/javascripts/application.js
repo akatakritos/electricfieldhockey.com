@@ -24,7 +24,20 @@ $(function() {
     var value    = $(this).data("value") || null;
 
     trackEvent(category, action, label, value);
-    e.preventDefault();
+  });
+
+  $(document).on('click', 'ul.pagination a', function(e) {
+
+    var $parent = $(this).parent();
+    if ($parent.hasClass("previous_page")) {
+      action = "previous";
+    } else if($parent.hasClass("next_page")) {
+      action = "next";
+    } else {
+      action = $(this).text();
+    }
+
+    trackEvent("Pagination", action);
   });
 
 });
