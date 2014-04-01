@@ -5,7 +5,12 @@
 <div>
 <span class='badge badge-inverse' title='Views'><%= level_list_item.view_count %></span>
 <span class='badge badge-success' title='Victories'><%= level_list_item.level_wins_count %></span>
-<small class='scoreboard-link'><%= link_to 'Scoreboard', level_scoreboard_path(level_list_item) %></small>
+<small class='scoreboard-link'>
+  <%= link_to 'Scoreboard', level_scoreboard_path(level_list_item),
+    :data => { :category => "Clicks",
+               :action => "Scoreboard",
+               :label => level_list_item.name } %>
+</small>
 </div>
   <div class='level-thumbnail'>
     <%= image_tag(level_list_item.json['backgroundUrl']) %>
