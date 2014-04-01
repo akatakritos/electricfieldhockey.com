@@ -9,7 +9,7 @@ describe LevelsController do
       expect(assigns(:levels)).to eq([level])
     end
 
-    it 'assigns featured levels' do
+    it 'assigns featured levels when not sorting' do
       get :index
       expect(assigns(:featured_levels)).to_not be_nil
     end
@@ -27,6 +27,18 @@ describe LevelsController do
         15.times { FactoryGirl.create(:level) }
         get :index
         expect(assigns(:levels).length).to eq(9)
+      end
+
+      it 'paginates to 12 when sorting' do
+        15.times { FactoryGirl.create(:level) }
+        get :index, 'sort' => "age"
+        expect(assigns(:levels).length).to eq 12
+      end
+
+      it 'does not assign featured_levels when sorting' do
+        15.times { FactoryGirl.create(:level) }
+        get :index, 'sort' => 'age'
+        expect(assigns(:featured_levels)).to be_nil
       end
 
       

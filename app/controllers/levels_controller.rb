@@ -7,16 +7,21 @@ class LevelsController < ApplicationController
   def index
 
     @sorter = LevelSorter.new(params)
-    @featured_levels = [
-      FeaturedLevel.newest,
-      FeaturedLevel.hardest]
-    @featured_levels << FeaturedLevel.random(:excluding => @featured_levels)
 
-    @featured_levels.compact!
+    if @sorter.default?
+      @featured_levels = [
+        FeaturedLevel.newest,
+        FeaturedLevel.hardest]
+      @featured_levels << FeaturedLevel.random(:excluding => @featured_levels)
+
+      @featured_levels.compact!
+    end
+
+    page_size = @sorter.default? ? 9 : 12
 
     @levels = Level.includes(:creator).
       order("#{@sorter.column} #{@sorter.direction}").
-      paginate(:page => params[:page], :per_page => 9)
+      paginate(:page => params[:page], :per_page => page_size)
 
     respond_to do |format|
       format.html # index.html.erb

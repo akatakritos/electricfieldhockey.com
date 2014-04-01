@@ -2,9 +2,11 @@
 <h1>Levels</h1>
 
 <%= link_to 'Create a Level', new_level_path %>
-<ul class='level-list featured'>
-  <%= render :partial => "shared/level_list_item", :collection => @featured_levels, :locals => {:show_delete => false } %>
-</ul>
+<% if @featured_levels %>
+  <ul class='level-list featured'>
+    <%= render :partial => "shared/level_list_item", :collection => @featured_levels, :locals => {:show_delete => false } %>
+  </ul>
+<% end %>
 <%= sorter_block(@sorter) %>
 
 <ul class='level-list'>

@@ -38,5 +38,10 @@ describe LevelSorter do
       expect(sorter.direction).to eq "asc"
     end
 
+    it 'marks default if no params passed' do
+      sorter = LevelSorter.new
+      expect(sorter).to be_default
+    end
+
   end
 end

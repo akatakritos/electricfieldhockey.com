@@ -2,6 +2,7 @@ class LevelSorter
   LevelSorterField = Struct.new(:name, :param, :column, :default_direction)
 
   def initialize(params={})
+    @is_default = !params.has_key?("sort")
     @params = {"sort" => "age"}.merge(params)
   end
 
@@ -24,6 +25,10 @@ class LevelSorter
   
   def name
     current_sorter.name
+  end
+
+  def default?
+    @is_default
   end
 
   private
