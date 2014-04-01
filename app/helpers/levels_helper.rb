@@ -19,7 +19,8 @@ module LevelsHelper
         css += " active" if sorter.column == s.column
         link_to s.name, 
           params.merge("sort" => s.param), 
-          :class => css
+          :class => css,
+          :data => {:category => "Sort", :action => s.param}
       end.join.html_safe
     end
 
