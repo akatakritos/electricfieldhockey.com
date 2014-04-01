@@ -33,18 +33,6 @@ footer {
   margin-bottom: 0.5em;
 }
 
-/*
-li.level-list {
-  padding: 10px;
-  list-style-type: none;
-}
-
-li .level-details {
-  display: inline-block;
-  height: 100%;
-  vertical-align: middle;
-}*/
-
 .level-list .level-name {
   margin: 2px;
 }
@@ -54,6 +42,8 @@ li .level-details {
 }
 .level-list {
   text-align:justify;
+  padding-left: 40px;
+  padding-right: 40px;
 }
 
 .level-list li {
