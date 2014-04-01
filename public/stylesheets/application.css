@@ -52,7 +52,20 @@ li .level-details {
 .level-list.featured {
   background-color: rgb(228, 239, 255);
 }
+.level-list {
+  text-align:justify;
+}
 
+.level-list li {
+  display:inline-block;
+  vertical-align: top;
+}
+
+.level-list::after {
+  content: "";
+  width: 100%;
+  display: inline-block;
+}
 .level-list-item {
   display:inline-block;
   margin: 10px;
