@@ -1,7 +1,11 @@
 <% @title = 'Levels' %>
 <h1>Levels</h1>
 
-<%= link_to 'Create a Level', new_level_path %>
+<% if ab_test("create_level_button") %>
+  <%= link_to "Create a Level", new_level_path, :class => "btn btn-success", :style => "margin-bottom: 1em" %>
+<% else %>
+  <%= link_to 'Create a Level', new_level_path %>
+<% end %>
 <% if @featured_levels %>
   <ul class='level-list featured'>
     <%= render :partial => "shared/level_list_item", :collection => @featured_levels, :locals => {:show_delete => false } %>
