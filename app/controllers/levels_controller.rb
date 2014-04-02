@@ -46,6 +46,7 @@ class LevelsController < ApplicationController
   def new
     @level = Level.new
     @level.set_defaults
+    bingo!("create_level_button")
 
     respond_to do |format|
       format.html # new.html.erb

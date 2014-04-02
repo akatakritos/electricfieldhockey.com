@@ -20,5 +20,8 @@ ElectricFieldHockey::Application.routes.draw do
   namespace :admin do
     resources :users
     resources :levels
+    get 'abingo/', :to => 'abingo_dashboard#index'
+    post 'abingo/end_experiment/:id', :to => 'abingo_dashboard#end_experiment'
   end
+
 end
