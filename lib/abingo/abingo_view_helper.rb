@@ -5,7 +5,11 @@ module AbingoViewHelper
   def ab_test(test_name, alternatives = nil, options = {}, &block)
 
     if (Abingo.options[:enable_specification] && !params[test_name].nil?)
-      choice = params[test_name]
+      if (params[test_name] === "__FALSE__")
+        choice = false
+      else
+        choice = params[test_name]
+      end
     elsif (Abingo.options[:enable_override_in_session] && !session[test_name].nil?)
       choice = session[test_name]
     elsif (alternatives.nil?)

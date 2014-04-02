@@ -21,3 +21,5 @@ end
 ActionController::Base.send :include, AbingoSugar
 
 ActionView::Base.send :include, AbingoViewHelper
+
+Abingo.options[:enable_specification] = true unless Rails.env.production?
