@@ -40,5 +40,7 @@ module ElectricFieldHockey
     config.filter_parameters += [:password]
 
     config.autoload_paths += Dir[Rails.root.join('app', 'models', '**/')]
+
+    config.cache_store = :file_store, Rails.root.join("cache")
   end
 end

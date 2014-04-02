@@ -6,3 +6,4 @@ tmp/**/*
 public/uploads/maps/*
 db/data.yml
 config/tasks_config.yml
+cache
