@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140402150720) do
+ActiveRecord::Schema.define(:version => 20140529030930) do
 
   create_table "alternatives", :force => true do |t|
     t.integer "experiment_id"
@@ -52,12 +52,12 @@ ActiveRecord::Schema.define(:version => 20140402150720) do
 
   create_table "levels", :force => true do |t|
     t.string   "name"
-    t.string   "json"
+    t.string   "json",             :limit => 512
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "creator_id"
-    t.integer  "view_count",       :default => 0
-    t.integer  "level_wins_count", :default => 0
+    t.integer  "view_count",                      :default => 0
+    t.integer  "level_wins_count",                :default => 0
   end
 
   add_index "levels", ["creator_id"], :name => "index_levels_on_creator_id"
