@@ -7,3 +7,9 @@ public/uploads/maps/*
 db/data.yml
 config/tasks_config.yml
 cache
+tmp/restart.txt
+tmp/last-pull.txt
+db/*.sql.gz
+tmp/cache
+game
+deploy.sh
