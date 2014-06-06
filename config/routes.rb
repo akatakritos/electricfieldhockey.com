@@ -24,4 +24,7 @@ ElectricFieldHockey::Application.routes.draw do
     post 'abingo/end_experiment/:id', :to => 'abingo_dashboard#end_experiment'
   end
 
+  match '/404' => 'errors#not_found'
+  match '/500' => 'errors#internal_error'
+
 end

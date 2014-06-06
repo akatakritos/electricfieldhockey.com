@@ -42,5 +42,7 @@ module ElectricFieldHockey
     config.autoload_paths += Dir[Rails.root.join('app', 'models', '**/')]
 
     config.cache_store = :file_store, Rails.root.join("cache")
+
+    config.exceptions_app = self.routes
   end
 end
