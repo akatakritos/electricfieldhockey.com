@@ -2,16 +2,14 @@ require 'spec_helper'
 
 describe 'Sign Up' do
 
-  before :each do 
+  before :each do
     visit signup_path
   end
 
   subject { page }
   describe 'page' do
     it 'should have the form' do
-      expect(page).to have_field 'user_username' 
-      expect(page).to have_field 'user_email'
-      expect(page).to have_field 'user_name'
+      expect(page).to have_field 'user_username'
       expect(page).to have_field 'user_password'
       expect(page).to have_field 'user_password_confirmation'
     end
@@ -24,14 +22,12 @@ describe 'Sign Up' do
 
   describe 'successful cases' do
     describe 'everything provided' do
-    
+
       let(:uncreated_user) { FactoryGirl.build(:user) }
       before do
         user = uncreated_user
         visit signup_path
         fill_in 'user_username', :with => user.username
-        fill_in 'user_email', :with => user.email
-        fill_in 'user_name', :with => user.name
         fill_in 'user_password', :with => user.password
         fill_in 'user_password_confirmation', :with => user.password_confirmation
       end
